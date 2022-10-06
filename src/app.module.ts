@@ -5,6 +5,13 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LibraryModule } from './library/library.module';
 import { typeOrmAsyncConfig } from './config/typeorm.config';
+import { PositionModule } from './position/position.module';
+import { GenreModule } from './genre/genre.module';
+import { AuthorModule } from './author/author.module';
+import { EmployeeModule } from './employee/employee.module';
+import { BookModule } from './book/book.module';
+import { UserModule } from './user/user.module';
+import { ReservedBooksModule } from './reserved-books/reserved-books.module';
 
 @Module({
   imports: [
@@ -14,6 +21,13 @@ import { typeOrmAsyncConfig } from './config/typeorm.config';
     }),
     LibraryModule,
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
+    PositionModule,
+    GenreModule,
+    AuthorModule,
+    EmployeeModule,
+    BookModule,
+    UserModule,
+    ReservedBooksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

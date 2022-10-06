@@ -13,46 +13,46 @@ import { Library } from './entities/library.entity';
 export class LibraryService {
   constructor(
     @InjectRepository(Library)
-    private libraryepository: Repository<Library>,
+    private libraryRepository: Repository<Library>,
   ) {}
 
   async create(createLibraryDto: CreateLibraryDto) {
     try {
-      return await this.libraryepository.save(createLibraryDto);
-    } catch (e) {
+      return await this.libraryRepository.save(createLibraryDto);
+    } catch (error) {
       throw new BadRequestException();
     }
   }
 
   async findAll() {
     try {
-      return await this.libraryepository.find();
-    } catch (e) {
+      return await this.libraryRepository.find();
+    } catch (error) {
       throw new BadRequestException();
     }
   }
 
   async findOne(id: number) {
     try {
-      return await this.libraryepository.findOneBy({ id });
-    } catch (e) {
+      return await this.libraryRepository.findOneBy({ id });
+    } catch (error) {
       throw new NotFoundException();
     }
   }
 
   async update(id: number, updateLibraryDto: UpdateLibraryDto) {
     try {
-      return await this.libraryepository.update({ id }, updateLibraryDto);
-    } catch (e) {
-      throw new NotFoundException();
+      return await this.libraryRepository.update({ id }, updateLibraryDto);
+    } catch (error) {
+      throw new BadRequestException();
     }
   }
 
   async remove(id: number) {
     try {
-      return await this.libraryepository.delete({ id });
-    } catch (e) {
-      throw new NotFoundException();
+      return await this.libraryRepository.delete({ id });
+    } catch (error) {
+      throw new BadRequestException();
     }
   }
 }
