@@ -8,6 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
   Put,
+  Render,
 } from '@nestjs/common';
 import { LibraryService } from './library.service';
 import { CreateLibraryDto } from './dto/create-library.dto';
@@ -24,13 +25,17 @@ export class LibraryController {
   }
 
   @Get()
-  findAll() {
-    return this.libraryService.findAll();
+  @Render('./library/librariesList.pug')
+  async findAll() {
+    const data = await this.libraryService.findAll();
+    return { libraries: data, title: 'Список библиотек' };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.libraryService.findOne(+id);
+  @Render('./library/library.pug')
+  async findOne(@Param('id') id: string) {
+    const data = await this.libraryService.findOne(+id);
+    return { ...data };
   }
 
   @UsePipes(new ValidationPipe())

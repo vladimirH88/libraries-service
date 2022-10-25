@@ -1,0 +1,22 @@
+extends ../layout.pug
+
+block header 
+  style
+    include ../styles.css
+  h1 #{title}
+block content
+  table(class='table')
+      thead
+      tr
+          th Название
+          th Адресс
+          th Телефон
+          th email
+      tbody
+      each library in libraries
+          tr
+          td 
+            a(class='link' href=`/libraries/${library.id}`) #{library.name}
+          td #{library.address}
+          td #{library.phone}
+          td #{library.email}
