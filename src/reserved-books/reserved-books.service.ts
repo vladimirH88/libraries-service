@@ -1,9 +1,6 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { InternalServerErrorException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { returnDbItem } from 'src/utils/response';
 import { Repository } from 'typeorm';
 import { CreateReservedBookDto } from './dto/create-reserved-book.dto';
 import { UpdateReservedBookDto } from './dto/update-reserved-book.dto';
@@ -20,7 +17,7 @@ export class ReservedBooksService {
     try {
       return await this.reservedBookRepository.save(createReservedBookDto);
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -28,15 +25,16 @@ export class ReservedBooksService {
     try {
       return await this.reservedBookRepository.find();
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
   async findOne(id: number) {
     try {
-      return await this.reservedBookRepository.findOneBy({ id });
+      const item = await this.reservedBookRepository.findOneBy({ id });
+      return returnDbItem(item);
     } catch (error) {
-      throw new NotFoundException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -47,7 +45,7 @@ export class ReservedBooksService {
         updateReservedBookDto,
       );
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -55,7 +53,7 @@ export class ReservedBooksService {
     try {
       return await this.reservedBookRepository.delete({ id });
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 }

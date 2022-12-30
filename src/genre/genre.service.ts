@@ -1,9 +1,6 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { InternalServerErrorException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { returnDbItem } from 'src/utils/response';
 import { Repository } from 'typeorm';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
@@ -20,7 +17,7 @@ export class GenreService {
     try {
       return await this.genreRepository.save(createGenreDto);
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -28,15 +25,16 @@ export class GenreService {
     try {
       return await this.genreRepository.find();
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
   async findOne(id: number) {
     try {
-      return await this.genreRepository.findOneBy({ id });
+      const item = await this.genreRepository.findOneBy({ id });
+      return returnDbItem(item);
     } catch (error) {
-      throw new NotFoundException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -44,7 +42,7 @@ export class GenreService {
     try {
       return await this.genreRepository.update({ id }, updateGenreDto);
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -52,7 +50,7 @@ export class GenreService {
     try {
       return await this.genreRepository.delete({ id });
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 }

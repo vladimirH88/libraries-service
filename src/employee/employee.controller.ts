@@ -11,7 +11,7 @@ import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 
-@Controller('employee')
+@Controller('employees')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
@@ -27,7 +27,7 @@ export class EmployeeController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.employeeService.findOne(+id);
+    return this.employeeService.findById(+id);
   }
 
   @Put(':id')

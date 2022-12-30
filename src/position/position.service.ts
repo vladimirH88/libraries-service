@@ -1,9 +1,6 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { returnDbItem } from 'src/utils/response';
 import { Repository } from 'typeorm';
 import { CreatePositionDto } from './dto/create-position.dto';
 import { UpdatePositionDto } from './dto/update-position.dto';
@@ -18,25 +15,26 @@ export class PositionService {
 
   async create(createPositionDto: CreatePositionDto) {
     try {
-      await this.positionRepository.save(createPositionDto);
+      return await this.positionRepository.save(createPositionDto);
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
   async findAll() {
     try {
-      await this.positionRepository.find();
+      return await this.positionRepository.find();
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
   async findOne(id: number) {
     try {
-      await this.positionRepository.findOneBy({ id });
+      const item = await this.positionRepository.findOneBy({ id });
+      return returnDbItem(item);
     } catch (error) {
-      throw new NotFoundException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -44,15 +42,15 @@ export class PositionService {
     try {
       await this.positionRepository.update({ id }, updatePositionDto);
     } catch (error) {
-      throw new NotFoundException();
+      throw new InternalServerErrorException();
     }
   }
 
   async remove(id: number) {
     try {
-      await this.positionRepository.delete({ id });
+      return await this.positionRepository.delete({ id });
     } catch (error) {
-      throw new NotFoundException();
+      throw new InternalServerErrorException();
     }
   }
 }

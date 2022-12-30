@@ -1,9 +1,6 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { returnDbItem } from 'src/utils/response';
 import { Repository } from 'typeorm';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
@@ -20,7 +17,7 @@ export class AuthorService {
     try {
       return await this.authorRepository.save(createAuthorDto);
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -28,15 +25,16 @@ export class AuthorService {
     try {
       return await this.authorRepository.find();
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
   async findOne(id: number) {
     try {
-      return await this.authorRepository.findOneBy({ id });
+      const item = await this.authorRepository.findOneBy({ id });
+      return returnDbItem(item);
     } catch (error) {
-      throw new NotFoundException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -44,7 +42,7 @@ export class AuthorService {
     try {
       return await this.authorRepository.update({ id }, updateAuthorDto);
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -52,7 +50,7 @@ export class AuthorService {
     try {
       return await this.authorRepository.delete({ id });
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 }

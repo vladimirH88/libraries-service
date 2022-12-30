@@ -1,9 +1,6 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { InternalServerErrorException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { returnDbItem } from 'src/utils/response';
 import { Repository } from 'typeorm';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -20,7 +17,7 @@ export class BookService {
     try {
       return await this.bookRepository.save(createBookDto);
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -28,15 +25,16 @@ export class BookService {
     try {
       return await this.bookRepository.find();
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
   async findOne(id: number) {
     try {
-      return await this.bookRepository.findOneBy({ id });
+      const item = await this.bookRepository.findOneBy({ id });
+      return returnDbItem(item);
     } catch (error) {
-      throw new NotFoundException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -44,7 +42,7 @@ export class BookService {
     try {
       return await this.bookRepository.update({ id }, updateBookDto);
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 
@@ -52,7 +50,7 @@ export class BookService {
     try {
       return await this.bookRepository.delete({ id });
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
     }
   }
 }
