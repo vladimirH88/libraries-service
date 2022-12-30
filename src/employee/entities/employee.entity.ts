@@ -1,12 +1,12 @@
 import { Library } from 'src/library/entities/library.entity';
 import { Position } from 'src/position/entities/position.entity';
+import { Role } from 'src/roles/entities/role.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -24,7 +24,7 @@ export class Employee {
   @Column()
   surname: string;
 
-  @OneToOne(() => Position)
+  @ManyToOne(() => Position)
   @JoinColumn({ name: 'position_id' })
   position: Position;
 
@@ -37,4 +37,17 @@ export class Employee {
 
   @Column({ nullable: true })
   fired_date: Date;
+
+  @ManyToOne(() => Role)
+  @JoinColumn({ name: 'role_id' })
+  role: Role;
+
+  @Column()
+  password: string;
+
+  @Column()
+  login: string;
+
+  @Column({ default: false })
+  active: boolean;
 }

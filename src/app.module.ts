@@ -12,6 +12,8 @@ import { EmployeeModule } from './employee/employee.module';
 import { BookModule } from './book/book.module';
 import { UserModule } from './user/user.module';
 import { ReservedBooksModule } from './reserved-books/reserved-books.module';
+import { AuthModule } from './auth/auth.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { ReservedBooksModule } from './reserved-books/reserved-books.module';
     BookModule,
     UserModule,
     ReservedBooksModule,
+    AuthModule,
+    RolesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

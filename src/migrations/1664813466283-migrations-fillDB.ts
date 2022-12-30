@@ -35,10 +35,17 @@ export class migrations1664813466283 implements MigrationInterface {
       `,
     );
     await queryRunner.query(
-      `INSERT INTO libraries.employees (name, patronymic, surname, position_id, library_id) VALUES
-      ('Иван', 'Иванович', 'Иванов', (SELECT id FROM libraries.positions WHERE name = 'Директор'), (SELECT id FROM libraries.libraries WHERE name = 'Библиотека Филиал N 9')),
-      ('Пётр', 'Петрович', 'Петров', (SELECT id FROM libraries.positions WHERE name = 'Охранник'), (SELECT id FROM libraries.libraries WHERE name = 'Библиотека Им Макаенка Центральная Городская')),
-      ('Лариса', 'Никифоровна', 'Цветкова', (SELECT id FROM libraries.positions WHERE name = 'Библиотекарь'), (SELECT id FROM libraries.libraries WHERE name = 'Библиотека Филиал N 9'))
+      `INSERT INTO libraries.roles (name, description, active) VALUES
+      ('guest', 'Просмотр', true),
+      ('admin', 'Добавление, учёт книг', true),
+      ('super_admin', 'Добавление и изменение информации о сотрудниках и библиотеках', true)
+      `,
+    );
+    await queryRunner.query(
+      `INSERT INTO libraries.employees (name, patronymic, surname, position_id, library_id, role_id, password, login, active) VALUES
+      ('Иван', 'Иванович', 'Иванов', (SELECT id FROM libraries.positions WHERE name = 'Директор'), (SELECT id FROM libraries.libraries WHERE name = 'Библиотека Филиал N 9'), (SELECT id FROM libraries.roles WHERE name = 'admin'), 'password', 'login', true),
+      ('Пётр', 'Петрович', 'Петров', (SELECT id FROM libraries.positions WHERE name = 'Охранник'), (SELECT id FROM libraries.libraries WHERE name = 'Библиотека Им Макаенка Центральная Городская'), (SELECT id FROM libraries.roles WHERE name = 'admin'), 'password', 'login', true),
+      ('Лариса', 'Никифоровна', 'Цветкова', (SELECT id FROM libraries.positions WHERE name = 'Библиотекарь'), (SELECT id FROM libraries.libraries WHERE name = 'Библиотека Филиал N 9'), (SELECT id FROM libraries.roles WHERE name = 'super_admin'), 'password', 'login', true)
       `,
     );
     await queryRunner.query(
@@ -71,7 +78,7 @@ export class migrations1664813466283 implements MigrationInterface {
     );
     await queryRunner.query(
       `INSERT INTO libraries.reserved_books (user_id, book_id, reserved_from, reserved_to) VALUES
-      ((SELECT id FROM libraries.users WHERE surname = 'Сидоров'), (SELECT id FROM libraries.books WHERE name = '1984'), '${new Date().toLocaleString()}', 
+      ((SELECT id FROM libraries.users WHERE surname = 'Сидоров'), (SELECT id FROM libraries.books WHERE name = '1984'), '${new Date().toLocaleString()}',
       '${new Date(
         new Date().setDate(new Date().getDate() + 3),
       ).toLocaleString()}'),
