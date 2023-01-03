@@ -40,7 +40,10 @@ export class EmployeeService {
 
   async findByLogin(login: string) {
     try {
-      return await this.employeeRepository.findOneBy({ login });
+      return await this.employeeRepository.findOne({
+        where: { login },
+        relations: ['role'],
+      });
     } catch (error) {
       throw new InternalServerErrorException();
     }
