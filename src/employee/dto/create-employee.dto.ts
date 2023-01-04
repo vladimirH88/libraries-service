@@ -1,6 +1,9 @@
 import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Role } from 'src/roles/entities/role.entity';
 
 export class CreateEmployeeDto {
+  id: number;
+
   @IsString()
   name: string;
 
@@ -17,10 +20,18 @@ export class CreateEmployeeDto {
   @IsNumber()
   library_id: number;
 
-  @IsDate()
+  @IsString()
   employment_date: Date;
 
   @IsDate()
   @IsOptional()
   fired_date: Date;
+
+  password: string;
+
+  @IsString()
+  login: string;
+
+  @IsNumber()
+  role: Role;
 }

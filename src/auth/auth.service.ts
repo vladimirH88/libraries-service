@@ -1,18 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateEmployeeDto } from 'src/employee/dto/create-employee.dto';
 import { EmployeeService } from 'src/employee/employee.service';
-import { Employee } from 'src/employee/entities/employee.entity';
 import * as bcrypt from 'bcrypt';
+import { createPassword } from 'src/utils/passwordGenerator';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: EmployeeService,
+    private employeeService: EmployeeService,
     private jwtService: JwtService,
   ) {}
 
-  async login(user: Employee) {
+  async login(dto: CreateEmployeeDto) {
+    const user = await this.validateUser(dto);
+    if (!user) {
+      throw new UnauthorizedException('Неправильный логин или пароль');
+    }
+    return this.generateToken(user);
+  }
+
+  async registration(dto: CreateEmployeeDto) {
+    const candidate = await this.employeeService.findByLogin(dto.login);
+    if (candidate) {
+      throw new HttpException(
+        'Пользователь с таким логином уже существует',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const password = createPassword();
+    const hashPassword = await bcrypt.hash(password, 5);
+    const user = await this.employeeService.create({
+      ...dto,
+      password: hashPassword,
+    });
+    return this.generateToken(user);
+  }
+
+  private async generateToken(user: Partial<CreateEmployeeDto>) {
     const payload = {
       login: user.login,
       sub: user.id,
@@ -25,15 +55,14 @@ export class AuthService {
   }
 
   async validateUser(
-    login: string,
-    pass: string,
+    dto: CreateEmployeeDto,
   ): Promise<Partial<CreateEmployeeDto>> {
     try {
-      const user = await this.usersService.findByLogin(login);
+      const user = await this.employeeService.findByLogin(dto.login);
       if (!user) {
         return null;
       }
-      const passwordEquals = await bcrypt.compare(pass, user.password);
+      const passwordEquals = await bcrypt.compare(dto.password, user.password);
       if (user && passwordEquals) {
         const { password, ...result } = user;
         return result;
