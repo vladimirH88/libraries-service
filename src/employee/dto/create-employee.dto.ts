@@ -1,4 +1,10 @@
-import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsEmail,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Role } from 'src/roles/entities/role.entity';
 
 export class CreateEmployeeDto {
@@ -34,4 +40,9 @@ export class CreateEmployeeDto {
 
   @IsNumber()
   role: Role;
+
+  @IsEmail()
+  email: string;
+
+  active: boolean;
 }

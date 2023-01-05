@@ -1,9 +1,12 @@
 import {
   Controller,
   Post,
+  Param,
   Body,
   UsePipes,
   ValidationPipe,
+  Get,
+  Query,
 } from '@nestjs/common';
 import { CreateEmployeeDto } from 'src/employee/dto/create-employee.dto';
 import { AuthService } from './auth.service';
@@ -21,5 +24,10 @@ export class AuthController {
   @Post('/registration')
   registration(@Body() req) {
     return this.authService.registration(req);
+  }
+
+  @Get('/confirm')
+  confirm(@Query() { id }: { id: string }) {
+    return this.authService.confirmRegistration(+id);
   }
 }

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LibraryModule } from './library/library.module';
 import { typeOrmAsyncConfig } from './config/typeorm.config';
@@ -16,6 +16,8 @@ import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/guards/roles.guard';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { getMailConfig } from './config/mail.config';
 
 @Module({
   imports: [
@@ -34,6 +36,11 @@ import { RolesGuard } from './auth/guards/roles.guard';
     ReservedBooksModule,
     AuthModule,
     RolesModule,
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: getMailConfig,
+    }),
   ],
   controllers: [AppController],
   providers: [

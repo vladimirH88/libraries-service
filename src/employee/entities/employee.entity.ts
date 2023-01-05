@@ -24,6 +24,9 @@ export class Employee {
   @Column()
   surname: string;
 
+  @Column()
+  email: string;
+
   @ManyToOne(() => Position)
   @JoinColumn({ name: 'position_id' })
   position: Position;
