@@ -1,0 +1,24 @@
+head
+  meta(charset='utf-8')
+  title Регистрация
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css')
+  body
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4#myModalLabel.modal-title
+            | Регистрация
+        .modal-body
+          form(name="form")
+            div.form-group
+              label(for='name') Логин:
+              input#name.form-control(type='text' placeholder='Логин' name='login' required)
+              div(class="text-danger" id="loginError")
+            div.form-group
+              label(for='email') Email:
+              input#email.form-control(type='password' placeholder='Пароль' name='password' required)
+              div(class="text-danger" id="passwordError")
+            button.btn.btn-primary(type="button" onclick="onSubmitForm()") Зарегистрироваться
+            div(class="text-danger" id="registrationError")
+  script
+    include script.js

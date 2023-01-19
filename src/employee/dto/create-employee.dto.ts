@@ -35,7 +35,6 @@ export class CreateEmployeeDto {
 
   password: string;
 
-  @IsString()
   login: string;
 
   @IsNumber()

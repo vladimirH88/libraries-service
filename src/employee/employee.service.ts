@@ -49,6 +49,16 @@ export class EmployeeService {
     }
   }
 
+  async findByEmail(email: string) {
+    try {
+      return await this.employeeRepository.findOne({
+        where: { email },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
   async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
     try {
       return await this.employeeRepository.update({ id }, updateEmployeeDto);

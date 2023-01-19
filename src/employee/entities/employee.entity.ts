@@ -45,10 +45,10 @@ export class Employee {
   @JoinColumn({ name: 'role_id' })
   role: Role;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   login: string;
 
   @Column({ default: false })
