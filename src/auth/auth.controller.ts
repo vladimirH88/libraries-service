@@ -7,11 +7,16 @@ import {
   Get,
   Query,
   Render,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateEmployeeDto } from 'src/employee/dto/create-employee.dto';
 import { AuthService } from './auth.service';
 import { ICredentials } from 'src/types/credentials';
 import { RegistrationDto } from './dto/registration.dto';
+import { RefreshTokenGuard } from './guards/refreshToken.guard';
+import { Request } from 'express';
+import { AccessTokenGuard } from './guards/accessToken.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -20,6 +25,12 @@ export class AuthController {
   @Post('/login')
   login(@Body() req) {
     return this.authService.login(req);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get('/logout')
+  logout(@Req() req: Request) {
+    this.authService.logout(req.user['id']);
   }
 
   @UsePipes(new ValidationPipe({ expectedType: RegistrationDto }))
@@ -38,5 +49,13 @@ export class AuthController {
   @Get('/confirm')
   confirm(@Query() { id }: { id: string }) {
     return { id };
+  }
+
+  @UseGuards(RefreshTokenGuard)
+  @Get('/refresh')
+  refreshTokens(@Req() req: Request) {
+    const id = req.user['id'];
+    const refreshToken = req.user['refreshToken'];
+    return this.authService.refreshTokens(id, refreshToken);
   }
 }

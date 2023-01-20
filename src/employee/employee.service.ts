@@ -1,6 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { returnDbItem } from 'src/utils/response';
 import { Repository } from 'typeorm';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
@@ -31,8 +30,11 @@ export class EmployeeService {
 
   async findById(id: number) {
     try {
-      const item = await this.employeeRepository.findOneBy({ id });
-      return returnDbItem(item);
+      const item = await this.employeeRepository.findOne({
+        where: { id },
+        relations: ['role'],
+      });
+      return item;
     } catch (error) {
       throw new InternalServerErrorException();
     }

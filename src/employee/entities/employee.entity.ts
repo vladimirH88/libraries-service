@@ -53,4 +53,7 @@ export class Employee {
 
   @Column({ default: false })
   active: boolean;
+
+  @Column({ nullable: true })
+  refresh_token: string;
 }

@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -12,6 +13,7 @@ import { getConfirmLink } from './constants';
 import encryption from 'src/utils/encryption';
 import { throwHttpError } from 'src/utils/response';
 import { ICredentials } from 'src/types/credentials';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -19,6 +21,7 @@ export class AuthService {
     private employeeService: EmployeeService,
     private jwtService: JwtService,
     private readonly mailerService: MailerService,
+    private configService: ConfigService,
   ) {}
 
   async login(dto: CreateEmployeeDto) {
@@ -27,10 +30,17 @@ export class AuthService {
       if (!user) {
         return new UnauthorizedException('Неправильный логин или пароль');
       }
-      return this.generateToken(user);
+
+      const tokens = this.generateTokens(user);
+      this.updateRefreshToken(user.id, tokens.refreshToken);
+      return tokens;
     } catch (error) {
       throwHttpError();
     }
+  }
+
+  async logout(id: number) {
+    return this.employeeService.update(id, { refresh_token: null });
   }
 
   async confirmRegistration(id: number) {
@@ -93,13 +103,16 @@ export class AuthService {
         login,
       });
 
-      return { redirectUrl: '/' };
+      const tokens = this.generateTokens(user);
+      this.updateRefreshToken(id, tokens.refreshToken);
+
+      return { redirectUrl: `/?hash=${tokens.refreshToken}` };
     } catch (error) {
       throwHttpError();
     }
   }
 
-  private async generateToken(user: Partial<CreateEmployeeDto>) {
+  private generateTokens(user: Partial<CreateEmployeeDto>) {
     const payload = {
       login: user.login,
       sub: user.id,
@@ -107,8 +120,39 @@ export class AuthService {
     };
 
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+        secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
+        expiresIn: this.configService.get<string>('JWT_ACCESS_EXPIRES_IN'),
+      }),
+      refreshToken: this.jwtService.sign(payload, {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+        expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+      }),
     };
+  }
+
+  async refreshTokens(userId: number, refreshToken: string) {
+    const user = await this.employeeService.findById(userId);
+    if (!user || !user.refresh_token) {
+      throw new ForbiddenException('Access Denied');
+    }
+
+    const refreshTokenMatches = await encryption.compare(
+      refreshToken,
+      user.refresh_token,
+    );
+
+    if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
+    const tokens = await this.generateTokens(user);
+    await this.updateRefreshToken(user.id, tokens.refreshToken);
+    return tokens;
+  }
+
+  async updateRefreshToken(id: number, refreshToken: string) {
+    const hashedRefreshToken = await encryption.encrypt(refreshToken);
+    await this.employeeService.update(id, {
+      refresh_token: hashedRefreshToken,
+    });
   }
 
   async validateUser(

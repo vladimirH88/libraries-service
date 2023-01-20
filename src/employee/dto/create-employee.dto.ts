@@ -44,4 +44,6 @@ export class CreateEmployeeDto {
   email: string;
 
   active: boolean;
+
+  refresh_token?: string | null;
 }

@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/auth/constants/Roles';
@@ -13,7 +14,11 @@ import { ROLES_KEY } from '../decorators/role.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private jwtService: JwtService, private reflector: Reflector) {}
+  constructor(
+    private jwtService: JwtService,
+    private reflector: Reflector,
+    private configService: ConfigService,
+  ) {}
 
   canActivate(context: ExecutionContext): boolean {
     try {
@@ -35,11 +40,17 @@ export class RolesGuard implements CanActivate {
         });
       }
 
-      const user = this.jwtService.verify(token);
+      const user = this.jwtService.verify(token, {
+        secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
+      });
       req.user = user;
       return user.roles.some((role) => requiredRoles.includes(role));
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      if (error.name === 'TokenExpiredError') {
+        throw new UnauthorizedException({
+          message: 'Пользователь не авторизован',
+        });
+      }
       throw new HttpException('Нет доступа', HttpStatus.FORBIDDEN);
     }
   }
