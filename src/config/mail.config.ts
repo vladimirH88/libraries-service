@@ -13,7 +13,7 @@ export const getMailConfig = async (
       },
     },
     defaults: {
-      from: '"No Reply" <noreply@mail.com>',
+      from: `"No Reply" <${configService.get<string>('MAIL_HOST')}>`,
     },
   };
 };
