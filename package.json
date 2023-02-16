@@ -26,6 +26,7 @@
     "migration:revert": "npm run build && cross-env NODE_ENV=dev npm run typeorm -- -d ./src/config/data-source.config.ts migration:revert"
   },
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@nestjs-modules/mailer": "^1.8.1",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.2.0",
