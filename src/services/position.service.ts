@@ -40,7 +40,7 @@ export class PositionService {
 
   async update(id: number, updatePositionDto: UpdatePositionDto) {
     try {
-      await this.positionRepository.update({ id }, updatePositionDto);
+      return await this.positionRepository.update({ id }, updatePositionDto);
     } catch (error) {
       throw new InternalServerErrorException();
     }

@@ -15,7 +15,7 @@ export class RolesService {
 
   async create(createRoleDto: CreateRoleDto) {
     try {
-      await this.roleRepository.save(createRoleDto);
+      return await this.roleRepository.save(createRoleDto);
     } catch (error) {
       throw new InternalServerErrorException();
     }
@@ -23,7 +23,7 @@ export class RolesService {
 
   async findAll() {
     try {
-      await this.roleRepository.find();
+      return await this.roleRepository.find();
     } catch (error) {
       throw new InternalServerErrorException();
     }
@@ -40,7 +40,7 @@ export class RolesService {
 
   async update(id: number, updateRoleDto: UpdateRoleDto) {
     try {
-      await this.roleRepository.update({ id }, updateRoleDto);
+      return await this.roleRepository.update({ id }, updateRoleDto);
     } catch (error) {
       throw new InternalServerErrorException();
     }

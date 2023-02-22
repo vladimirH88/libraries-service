@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker/locale/ru';
+import { Role } from 'src/constants/Roles';
 
 export const NUMBER_OF_LIBRARIES = 100;
 export const NUMBER_OF_GENRES = 20;
@@ -46,18 +47,18 @@ export const generatePositions = (quantity: number) => {
 
 export const roles = [
   {
-    name: 'guest',
+    name: Role.Guest,
     description: 'Просмотр',
     active: true,
   },
   {
-    name: 'super_admin',
+    name: Role.Super,
     description:
       'Добавление и изменение информации о сотрудниках и библиотеках',
     active: true,
   },
   {
-    name: 'admin',
+    name: Role.Admin,
     description: 'Добавление, учёт книг',
     active: true,
   },

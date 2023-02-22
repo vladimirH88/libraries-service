@@ -173,7 +173,6 @@ export class AuthService {
       }
       return null;
     } catch (error) {
-      console.error(error);
       return null;
     }
   }
