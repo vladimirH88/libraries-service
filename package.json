@@ -9,6 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "prestart:dev": "npm run migrations:run",
     "start": "cross-env NODE_ENV=prod nest start",
     "start:dev": "cross-env NODE_ENV=dev nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -21,7 +22,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "migration:create": "npm run build && cross-env NODE_ENV=dev npm run typeorm -- migration:create ./src/migrations/%npm_config_name%",
-    "migration:generate": " npm run build && cross-env NODE_ENV=dev npm run typeorm -- -d ./src/config/data-source.config.ts migration:generate ./src/migrations/%npm_config_name%",
+    "migration:generate": "npm run build && cross-env NODE_ENV=dev npm run typeorm -- -d ./src/config/data-source.config.ts migration:generate ./src/migrations/%npm_config_name%",
     "migrations:run": "npm run build && cross-env NODE_ENV=dev npm run typeorm migration:run -- -d ./src/config/data-source.config.ts",
     "migration:revert": "npm run build && cross-env NODE_ENV=dev npm run typeorm -- -d ./src/config/data-source.config.ts migration:revert"
   },

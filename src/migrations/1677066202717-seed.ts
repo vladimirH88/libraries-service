@@ -22,7 +22,7 @@ import {
 } from 'src/helpers/mocks/entity.mock';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class seed1676469101424 implements MigrationInterface {
+export class seed1677066202717 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const libraries = generateLibraries(NUMBER_OF_LIBRARIES);
     for (const item of libraries) {
@@ -57,7 +57,5 @@ export class seed1676469101424 implements MigrationInterface {
     }
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {
-    // await queryRunner.manager.clear(Library);
-  }
+  public async down(queryRunner: QueryRunner): Promise<void> {}
 }

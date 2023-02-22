@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('employees', { schema: 'libraries' })
+@Entity('employees')
 export class Employee {
   @PrimaryGeneratedColumn()
   id: number;

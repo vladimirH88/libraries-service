@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('reserved_books', { schema: 'libraries' })
+@Entity('reserved_books')
 export class ReservedBook {
   @PrimaryGeneratedColumn()
   id: number;
