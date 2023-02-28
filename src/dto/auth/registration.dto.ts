@@ -4,7 +4,7 @@ import {
   loginLength,
   passwordLength,
   passwordLengthError,
-} from 'src/constants/registration';
+} from '@constants/registration';
 
 export class RegistrationDto {
   @IsNumber()

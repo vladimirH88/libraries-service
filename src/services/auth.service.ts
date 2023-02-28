@@ -6,14 +6,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateEmployeeDto } from 'src/dto/employee/create-employee.dto';
-import { EmployeeService } from 'src/services/employee.service';
+import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
+import { EmployeeService } from '@services/employee.service';
 import { MailerService } from '@nestjs-modules/mailer';
-import encryption from 'src/utils/encryption';
-import { throwHttpError } from 'src/utils/response';
+import encryption from '@utils/encryption';
+import { throwHttpError } from '@utils/response';
 import { ICredentials } from 'src/types/credentials';
 import { ConfigService } from '@nestjs/config';
-import { generateConfirmLink } from 'src/utils/generateConfirmLink';
+import { generateConfirmLink } from '@utils/generateConfirmLink';
 
 @Injectable()
 export class AuthService {

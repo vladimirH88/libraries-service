@@ -1,10 +1,10 @@
 import { InternalServerErrorException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateLibraryDto } from '../dto/library/create-library.dto';
-import { UpdateLibraryDto } from '../dto/library/update-library.dto';
-import { Library } from '../entityes/library.entity';
-import { returnDbItem } from 'src/utils/response';
+import { CreateLibraryDto } from '@dto/library/create-library.dto';
+import { UpdateLibraryDto } from '@dto/library/update-library.dto';
+import { Library } from '@entities/library.entity';
+import { returnDbItem } from '@utils/response';
 
 @Injectable()
 export class LibraryService {

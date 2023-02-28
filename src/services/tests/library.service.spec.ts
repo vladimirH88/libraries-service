@@ -1,9 +1,10 @@
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Library } from 'src/entityes/library.entity';
-import { ID, LIBRARY } from 'src/utils/testUtils/constants';
-import { LibraryService } from '../library.service';
+
+import { Library } from '@entities/library.entity';
+import { ID, LIBRARY } from '@utils/testUtils/constants';
+import { LibraryService } from '@services/library.service';
 
 describe('LibraryService', () => {
   let service: LibraryService;

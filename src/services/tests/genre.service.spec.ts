@@ -1,9 +1,10 @@
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Genre } from 'src/entityes/genre.entity';
-import { ID, GENRE } from 'src/utils/testUtils/constants';
-import { GenreService } from '../genre.service';
+
+import { Genre } from '@entities/genre.entity';
+import { ID, GENRE } from '@utils/testUtils/constants';
+import { GenreService } from '@services/genre.service';
 
 describe('GenreService', () => {
   let service: GenreService;

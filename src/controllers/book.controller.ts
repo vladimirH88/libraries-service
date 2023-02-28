@@ -7,9 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { BookService } from '../services/book.service';
-import { CreateBookDto } from '../dto/book/create-book.dto';
-import { UpdateBookDto } from '../dto/book/update-book.dto';
+import { BookService } from '@services/book.service';
+import { CreateBookDto } from '@dto/book/create-book.dto';
+import { UpdateBookDto } from '@dto/book/update-book.dto';
 
 @Controller('books')
 export class BookController {

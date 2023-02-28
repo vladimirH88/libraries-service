@@ -1,11 +1,11 @@
-import { Author } from 'src/entityes/author.entity';
-import { Book } from 'src/entityes/book.entity';
-import { Employee } from 'src/entityes/employee.entity';
-import { Genre } from 'src/entityes/genre.entity';
-import { Library } from 'src/entityes/library.entity';
-import { Position } from 'src/entityes/position.entity';
-import { Role } from 'src/entityes/role.entity';
-import { User } from 'src/entityes/user.entity';
+import { Author } from '@entities/author.entity';
+import { Book } from '@entities/book.entity';
+import { Employee } from '@entities/employee.entity';
+import { Genre } from '@entities/genre.entity';
+import { Library } from '@entities/library.entity';
+import { Position } from '@entities/position.entity';
+import { Role } from '@entities/role.entity';
+import { User } from '@entities/user.entity';
 import {
   generateAuthors,
   generateBooks,
@@ -19,7 +19,7 @@ import {
   NUMBER_OF_LIBRARIES,
   NUMBER_OF_POSITIONS,
   roles,
-} from 'src/helpers/mocks/entity.mock';
+} from '@helpers/mocks/entity.mock';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class seed1677066202717 implements MigrationInterface {

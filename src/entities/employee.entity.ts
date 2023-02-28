@@ -1,6 +1,6 @@
-import { Library } from 'src/entityes/library.entity';
-import { Position } from 'src/entityes/position.entity';
-import { Role } from 'src/entityes/role.entity';
+import { Library } from '@entities/library.entity';
+import { Position } from '@entities/position.entity';
+import { Role } from '@entities/role.entity';
 import {
   Column,
   CreateDateColumn,

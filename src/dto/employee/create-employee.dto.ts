@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Role } from 'src/entityes/role.entity';
+import { Role } from '@entities/role.entity';
 
 export class CreateEmployeeDto {
   id: number;

@@ -1,9 +1,10 @@
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Position } from 'src/entityes/position.entity';
-import { ID, POSITION } from 'src/utils/testUtils/constants';
-import { PositionService } from '../position.service';
+
+import { Position } from '@entities/position.entity';
+import { ID, POSITION } from '@utils/testUtils/constants';
+import { PositionService } from '@services/position.service';
 
 describe('PositionService', () => {
   let service: PositionService;

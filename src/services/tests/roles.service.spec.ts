@@ -1,9 +1,10 @@
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Role } from 'src/entityes/role.entity';
-import { ID, ROLE } from 'src/utils/testUtils/constants';
-import { RolesService } from '../roles.service';
+
+import { Role } from '@entities/role.entity';
+import { ID, ROLE } from '@utils/testUtils/constants';
+import { RolesService } from '@services/roles.service';
 
 describe('RolesService', () => {
   let service: RolesService;

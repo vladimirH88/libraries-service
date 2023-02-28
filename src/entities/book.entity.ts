@@ -1,6 +1,6 @@
-import { Author } from 'src/entityes/author.entity';
-import { Genre } from 'src/entityes/genre.entity';
-import { Library } from 'src/entityes/library.entity';
+import { Author } from '@entities/author.entity';
+import { Genre } from '@entities/genre.entity';
+import { Library } from '@entities/library.entity';
 import {
   Column,
   Entity,

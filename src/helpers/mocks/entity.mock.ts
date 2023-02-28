@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker/locale/ru';
-import { Role } from 'src/constants/Roles';
+import { Role } from '@constants/Roles';
 
 export const NUMBER_OF_LIBRARIES = 100;
 export const NUMBER_OF_GENRES = 20;

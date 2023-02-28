@@ -1,12 +1,12 @@
-import { CreateAuthorDto } from 'src/dto/author/create-author.dto';
-import { CreateBookDto } from 'src/dto/book/create-book.dto';
-import { CreateEmployeeDto } from 'src/dto/employee/create-employee.dto';
-import { CreateGenreDto } from 'src/dto/genre/create-genre.dto';
-import { CreateLibraryDto } from 'src/dto/library/create-library.dto';
-import { CreatePositionDto } from 'src/dto/position/create-position.dto';
-import { CreateReservedBookDto } from 'src/dto/reserved-books/create-reserved-book.dto';
-import { CreateRoleDto } from 'src/dto/roles/create-role.dto';
-import { CreateUserDto } from 'src/dto/user/create-user.dto';
+import { CreateAuthorDto } from '@dto/author/create-author.dto';
+import { CreateBookDto } from '@dto/book/create-book.dto';
+import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
+import { CreateGenreDto } from '@dto/genre/create-genre.dto';
+import { CreateLibraryDto } from '@dto/library/create-library.dto';
+import { CreatePositionDto } from '@dto/position/create-position.dto';
+import { CreateReservedBookDto } from '@dto/reserved-books/create-reserved-book.dto';
+import { CreateRoleDto } from '@dto/roles/create-role.dto';
+import { CreateUserDto } from '@dto/user/create-user.dto';
 import {
   generateAuthors,
   generateBooks,
@@ -16,7 +16,7 @@ import {
   generatePositions,
   generateUsers,
   roles,
-} from 'src/helpers/mocks/entity.mock';
+} from '@helpers/mocks/entity.mock';
 
 const ID = 1;
 const ACCESS_TOKEN = 'accessToken';

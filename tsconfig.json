@@ -16,6 +16,20 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@constants/*": ["src/constants/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@decorators/*": ["src/decorators/*"],
+      "@dto/*": ["src/dto/*"],
+      "@entities/*": ["src/entities/*"],
+      "@guards/*": ["src/guards/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@modules/*": ["src/modules/*"],
+      "@services/*": ["src/services/*"],
+      "@strategies/*": ["src/strategy/*"],
+      "@types/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"]
+    }
   }
 }

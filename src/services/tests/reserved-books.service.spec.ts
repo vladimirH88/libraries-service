@@ -1,9 +1,10 @@
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { ReservedBook } from 'src/entityes/reserved-book.entity';
-import { ID, RESERVER_BOOK } from 'src/utils/testUtils/constants';
-import { ReservedBooksService } from '../reserved-books.service';
+
+import { ReservedBook } from '@entities/reserved-book.entity';
+import { ID, RESERVER_BOOK } from '@utils/testUtils/constants';
+import { ReservedBooksService } from '@services/reserved-books.service';
 
 describe('ReservedBooksService', () => {
   let service: ReservedBooksService;

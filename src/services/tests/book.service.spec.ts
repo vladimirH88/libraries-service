@@ -1,9 +1,10 @@
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Book } from 'src/entityes/book.entity';
-import { BOOK, ID } from 'src/utils/testUtils/constants';
-import { BookService } from '../book.service';
+
+import { Book } from '@entities/book.entity';
+import { BOOK, ID } from '@utils/testUtils/constants';
+import { BookService } from '@services/book.service';
 
 describe('BookService', () => {
   let service: BookService;

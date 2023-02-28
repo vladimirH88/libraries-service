@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PositionService } from 'src/services/position.service';
-import { POSITION } from 'src/utils/testUtils/constants';
-import { PositionController } from '../position.controller';
+import { PositionService } from '@services/position.service';
+import { POSITION } from '@utils/testUtils/constants';
+import { PositionController } from '@controllers/position.controller';
 
 describe('PositionController', () => {
   let controller: PositionController;

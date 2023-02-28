@@ -8,8 +8,9 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import encryption from 'src/utils/encryption';
-import * as responses from 'src/utils/response';
+
+import encryption from '@utils/encryption';
+import * as responses from '@utils/response';
 import {
   CREDENTIALS,
   EMPLOYEE,
@@ -18,9 +19,9 @@ import {
   REFRESH_TOKEN,
   SEND_MAIL_RESPONSE,
   TOKENS,
-} from 'src/utils/testUtils/constants';
-import { AuthService } from '../auth.service';
-import { EmployeeService } from '../employee.service';
+} from '@utils/testUtils/constants';
+import { AuthService } from '@services/auth.service';
+import { EmployeeService } from '@services/employee.service';
 
 describe('AutService', () => {
   let service: AuthService;

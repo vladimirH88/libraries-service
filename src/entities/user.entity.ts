@@ -1,4 +1,4 @@
-import { Library } from 'src/entityes/library.entity';
+import { Library } from '@entities/library.entity';
 import {
   Column,
   CreateDateColumn,

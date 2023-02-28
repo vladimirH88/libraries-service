@@ -1,10 +1,10 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { returnDbItem } from 'src/utils/response';
+import { returnDbItem } from '@utils/response';
 import { Repository } from 'typeorm';
-import { CreateAuthorDto } from '../dto/author/create-author.dto';
-import { UpdateAuthorDto } from '../dto/author/update-author.dto';
-import { Author } from '../entityes/author.entity';
+import { CreateAuthorDto } from '@dto/author/create-author.dto';
+import { UpdateAuthorDto } from '@dto/author/update-author.dto';
+import { Author } from '@entities/author.entity';
 
 @Injectable()
 export class AuthorService {

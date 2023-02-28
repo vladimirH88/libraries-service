@@ -1,9 +1,9 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateEmployeeDto } from '../dto/employee/create-employee.dto';
-import { UpdateEmployeeDto } from '../dto/employee/update-employee.dto';
-import { Employee } from '../entityes/employee.entity';
+import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
+import { UpdateEmployeeDto } from '@dto/employee/update-employee.dto';
+import { Employee } from '@entities/employee.entity';
 
 @Injectable()
 export class EmployeeService {

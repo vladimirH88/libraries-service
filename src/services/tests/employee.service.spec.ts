@@ -1,9 +1,10 @@
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Employee } from 'src/entityes/employee.entity';
-import { EMPLOYEE, ID } from 'src/utils/testUtils/constants';
-import { EmployeeService } from '../employee.service';
+
+import { Employee } from '@entities/employee.entity';
+import { EMPLOYEE, ID } from '@utils/testUtils/constants';
+import { EmployeeService } from '@services/employee.service';
 
 describe('EmployeeService', () => {
   let service: EmployeeService;

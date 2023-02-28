@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from 'src/services/auth.service';
-import { ICredentials } from 'src/types/credentials';
-import { AuthController } from '../auth.controller';
 import { createRequest } from 'node-mocks-http';
-import { EMPLOYEE } from 'src/utils/testUtils/constants';
+import { AuthService } from '@services/auth.service';
+import { ICredentials } from 'src/types/credentials';
+import { AuthController } from '@controllers/auth.controller';
+import { EMPLOYEE } from '@utils/testUtils/constants';
 
 describe('AuthController', () => {
   const ID = '1';

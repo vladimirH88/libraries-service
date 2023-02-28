@@ -97,7 +97,19 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
-      "^src/(.*)$": "<rootDir>/$1"
+      "^src/(.*)$": "<rootDir>/$1",
+      "^@constants/(.*)$": "<rootDir>/../src/constants/$1",
+      "^@controllers/(.*)$": "<rootDir>/../src/controllers/$1",
+      "^@decorators/(.*)$": "<rootDir>/../src/decorators/$1",
+      "^@dto/(.*)$": "<rootDir>/../src/dto/$1",
+      "^@entities/(.*)$": "<rootDir>/../src/entities/$1",
+      "^@guards/(.*)$": "<rootDir>/../src/guards/$1",
+      "^@helpers/(.*)$": "<rootDir>/../src/helpers/$1",
+      "^@modules/(.*)$": "<rootDir>/../src/modules/$1",
+      "^@services/(.*)$": "<rootDir>/../src/services/$1",
+      "^@strategies/(.*)$": "<rootDir>/../src/strategy/$1",
+      "^@types/(.*)$": "<rootDir>/../src/types/$1",
+      "^@utils/(.*)$": "<rootDir>/../src/utils/$1"
     }
   }
 }
