@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
+import { ReservedBooksController } from '@controllers/reserved-books.controller';
 import { ReservedBooksService } from '@services/reserved-books.service';
 import { RESERVER_BOOK } from '@utils/testUtils/constants';
-import { ReservedBooksController } from '@controllers/reserved-books.controller';
 
 describe('ReservedBooksController', () => {
   let controller: ReservedBooksController;

@@ -1,3 +1,4 @@
+import { Role } from '@entities/role.entity';
 import {
   IsDate,
   IsEmail,
@@ -5,7 +6,6 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Role } from '@entities/role.entity';
 
 export class CreateEmployeeDto {
   id: number;

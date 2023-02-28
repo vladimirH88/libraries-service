@@ -1,10 +1,12 @@
 import { InternalServerErrorException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { returnDbItem } from '@utils/response';
+
 import { Repository } from 'typeorm';
+
 import { CreateGenreDto } from '@dto/genre/create-genre.dto';
 import { UpdateGenreDto } from '@dto/genre/update-genre.dto';
 import { Genre } from '@entities/genre.entity';
+import { returnDbItem } from '@utils/response';
 
 @Injectable()
 export class GenreService {

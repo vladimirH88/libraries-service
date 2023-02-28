@@ -1,3 +1,5 @@
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
 import { Author } from '@entities/author.entity';
 import { Book } from '@entities/book.entity';
 import { Employee } from '@entities/employee.entity';
@@ -20,7 +22,6 @@ import {
   NUMBER_OF_POSITIONS,
   roles,
 } from '@helpers/mocks/entity.mock';
-import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class seed1677066202717 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -57,5 +58,6 @@ export class seed1677066202717 implements MigrationInterface {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   public async down(queryRunner: QueryRunner): Promise<void> {}
 }

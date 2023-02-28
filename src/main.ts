@@ -1,7 +1,9 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
+
+import { join } from 'path';
+
 import { AppModule } from './modules/app.module';
 
 async function bootstrap() {

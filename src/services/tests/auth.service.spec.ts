@@ -1,4 +1,3 @@
-import { MailerService } from '@nestjs-modules/mailer';
 import {
   ForbiddenException,
   HttpException,
@@ -8,7 +7,10 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { MailerService } from '@nestjs-modules/mailer';
 
+import { AuthService } from '@services/auth.service';
+import { EmployeeService } from '@services/employee.service';
 import encryption from '@utils/encryption';
 import * as responses from '@utils/response';
 import {
@@ -20,8 +22,6 @@ import {
   SEND_MAIL_RESPONSE,
   TOKENS,
 } from '@utils/testUtils/constants';
-import { AuthService } from '@services/auth.service';
-import { EmployeeService } from '@services/employee.service';
 
 describe('AutService', () => {
   let service: AuthService;

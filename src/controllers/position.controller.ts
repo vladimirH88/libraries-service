@@ -7,9 +7,10 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { PositionService } from '@services/position.service';
+
 import { CreatePositionDto } from '@dto/position/create-position.dto';
 import { UpdatePositionDto } from '@dto/position/update-position.dto';
+import { PositionService } from '@services/position.service';
 
 @Controller('positions')
 export class PositionController {

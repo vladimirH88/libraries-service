@@ -5,15 +5,16 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { MailerService } from '@nestjs-modules/mailer';
+
 import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
 import { EmployeeService } from '@services/employee.service';
-import { MailerService } from '@nestjs-modules/mailer';
 import encryption from '@utils/encryption';
+import { generateConfirmLink } from '@utils/generateConfirmLink';
 import { throwHttpError } from '@utils/response';
 import { ICredentials } from 'src/types/credentials';
-import { ConfigService } from '@nestjs/config';
-import { generateConfirmLink } from '@utils/generateConfirmLink';
 
 @Injectable()
 export class AuthService {
@@ -168,6 +169,7 @@ export class AuthService {
         user.password,
       );
       if (user?.active && passwordEquals) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...result } = user;
         return result;
       }

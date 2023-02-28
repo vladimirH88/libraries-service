@@ -1,5 +1,7 @@
-import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
+
+import { DataSource } from 'typeorm';
+
 import { config } from 'dotenv';
 
 config({ path: `.env.${process.env.NODE_ENV}` });

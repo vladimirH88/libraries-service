@@ -3,8 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { Author } from '@entities/author.entity';
-import { AUTHOR, ID } from '@utils/testUtils/constants';
 import { AuthorService } from '@services/author.service';
+import { AUTHOR, ID } from '@utils/testUtils/constants';
 
 describe('AuthorService', () => {
   let service: AuthorService;

@@ -1,10 +1,12 @@
 import { InternalServerErrorException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { returnDbItem } from '@utils/response';
+
 import { Repository } from 'typeorm';
+
 import { CreateRoleDto } from '@dto/roles/create-role.dto';
 import { UpdateRoleDto } from '@dto/roles/update-role.dto';
 import { Role } from '@entities/role.entity';
+import { returnDbItem } from '@utils/response';
 
 @Injectable()
 export class RolesService {

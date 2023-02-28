@@ -10,9 +10,10 @@ import {
   Put,
   Render,
 } from '@nestjs/common';
-import { LibraryService } from '@services/library.service';
+
 import { CreateLibraryDto } from '@dto/library/create-library.dto';
 import { UpdateLibraryDto } from '@dto/library/update-library.dto';
+import { LibraryService } from '@services/library.service';
 
 @Controller('libraries')
 export class LibraryController {

@@ -3,8 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { Position } from '@entities/position.entity';
-import { ID, POSITION } from '@utils/testUtils/constants';
 import { PositionService } from '@services/position.service';
+import { ID, POSITION } from '@utils/testUtils/constants';
 
 describe('PositionService', () => {
   let service: PositionService;

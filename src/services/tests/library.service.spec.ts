@@ -3,8 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { Library } from '@entities/library.entity';
-import { ID, LIBRARY } from '@utils/testUtils/constants';
 import { LibraryService } from '@services/library.service';
+import { ID, LIBRARY } from '@utils/testUtils/constants';
 
 describe('LibraryService', () => {
   let service: LibraryService;

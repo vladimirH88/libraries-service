@@ -1,5 +1,3 @@
-import { Book } from '@entities/book.entity';
-import { User } from '@entities/user.entity';
 import {
   Column,
   Entity,
@@ -7,6 +5,9 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Book } from '@entities/book.entity';
+import { User } from '@entities/user.entity';
 
 @Entity('reserved_books')
 export class ReservedBook {

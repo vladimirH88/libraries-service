@@ -10,13 +10,15 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
+
+import { Request } from 'express';
+
+import { RegistrationDto } from '@dto/auth/registration.dto';
 import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
+import { AccessTokenGuard } from '@guards/accessToken.guard';
+import { RefreshTokenGuard } from '@guards/refreshToken.guard';
 import { AuthService } from '@services/auth.service';
 import { ICredentials } from 'src/types/credentials';
-import { RegistrationDto } from '@dto/auth/registration.dto';
-import { RefreshTokenGuard } from '@guards/refreshToken.guard';
-import { Request } from 'express';
-import { AccessTokenGuard } from '@guards/accessToken.guard';
 
 @Controller('auth')
 export class AuthController {

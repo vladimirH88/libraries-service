@@ -1,21 +1,23 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { LibraryModule } from '@modules/library.module';
-import { typeOrmAsyncConfig } from '../config/typeorm.config';
-import { PositionModule } from '@modules/position.module';
-import { GenreModule } from '@modules/genre.module';
-import { AuthorModule } from '@modules/author.module';
-import { EmployeeModule } from '@modules/employee.module';
-import { BookModule } from '@modules/book.module';
-import { UserModule } from '@modules/user.module';
-import { ReservedBooksModule } from '@modules/reserved-books.module';
-import { AuthModule } from '@modules/auth.module';
-import { RolesModule } from '@modules/roles.module';
 import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from '@guards/roles.guard';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailerModule } from '@nestjs-modules/mailer';
+
+import { RolesGuard } from '@guards/roles.guard';
+import { AuthModule } from '@modules/auth.module';
+import { AuthorModule } from '@modules/author.module';
+import { BookModule } from '@modules/book.module';
+import { EmployeeModule } from '@modules/employee.module';
+import { GenreModule } from '@modules/genre.module';
+import { LibraryModule } from '@modules/library.module';
+import { PositionModule } from '@modules/position.module';
+import { ReservedBooksModule } from '@modules/reserved-books.module';
+import { RolesModule } from '@modules/roles.module';
+import { UserModule } from '@modules/user.module';
+
 import { getMailConfig } from '../config/mail.config';
+import { typeOrmAsyncConfig } from '../config/typeorm.config';
 
 @Module({
   imports: [

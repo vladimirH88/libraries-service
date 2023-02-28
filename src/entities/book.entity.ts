@@ -1,6 +1,3 @@
-import { Author } from '@entities/author.entity';
-import { Genre } from '@entities/genre.entity';
-import { Library } from '@entities/library.entity';
 import {
   Column,
   Entity,
@@ -8,6 +5,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Author } from '@entities/author.entity';
+import { Genre } from '@entities/genre.entity';
+import { Library } from '@entities/library.entity';
 
 @Entity('books')
 export class Book {

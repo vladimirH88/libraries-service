@@ -1,10 +1,10 @@
-import { IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
 import {
   loginLengthError,
   loginLength,
   passwordLength,
   passwordLengthError,
 } from '@constants/registration';
+import { IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class RegistrationDto {
   @IsNumber()

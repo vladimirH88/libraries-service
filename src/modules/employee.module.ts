@@ -1,9 +1,10 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { EmployeeService } from '@services/employee.service';
-import { EmployeeController } from '@controllers/employee.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { EmployeeController } from '@controllers/employee.controller';
 import { Employee } from '@entities/employee.entity';
 import { AuthModule } from '@modules/auth.module';
+import { EmployeeService } from '@services/employee.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Employee]), forwardRef(() => AuthModule)],

@@ -1,10 +1,12 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { returnDbItem } from '@utils/response';
+
 import { Repository } from 'typeorm';
+
 import { CreatePositionDto } from '@dto/position/create-position.dto';
 import { UpdatePositionDto } from '@dto/position/update-position.dto';
 import { Position } from '@entities/position.entity';
+import { returnDbItem } from '@utils/response';
 
 @Injectable()
 export class PositionService {

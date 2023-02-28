@@ -1,4 +1,3 @@
-import { Library } from '@entities/library.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Library } from '@entities/library.entity';
 
 @Entity('users')
 export class User {

@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
+import { LibraryController } from '@controllers/library.controller';
 import { LibraryService } from '@services/library.service';
 import { LIBRARY } from '@utils/testUtils/constants';
-import { LibraryController } from '@controllers/library.controller';
 
 describe('LibraryController', () => {
   let controller: LibraryController;
