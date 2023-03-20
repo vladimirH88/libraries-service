@@ -1,21 +1,35 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Author } from '@entities/author.entity';
+import { Genre } from '@entities/genre.entity';
+import { Library } from '@entities/library.entity';
 import { IsNumber, IsString } from 'class-validator';
 
 export class CreateBookDto {
+  @ApiProperty({ description: 'Book name', example: '1000 рецептов из щавеля' })
   @IsString()
   name: string;
 
+  @ApiProperty({
+    description: 'Book description',
+    example: 'Сборник рецептов для салатов',
+  })
   @IsString()
   description: string;
 
+  @ApiProperty({ description: 'Book isbn', example: '978-5-699-12014-7' })
   @IsString()
   isbn: string;
 
+  @ApiProperty({ description: 'Library id', example: '1' })
   @IsNumber()
-  library_id: number;
+  library: Library;
 
+  @ApiProperty({ description: 'Genre id', example: '2' })
   @IsNumber()
-  genre_id: number;
+  genre: Genre;
 
+  @ApiProperty({ description: 'Author id', example: '5' })
   @IsNumber()
-  author_id: number;
+  author: Author;
 }

@@ -11,8 +11,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
+import { ApiTags } from '@nestjs/swagger';
+
 import { Request } from 'express';
 
+import { SwaggerApi } from '@decorators/swaggerApi.decorator';
 import { RegistrationDto } from '@dto/auth/registration.dto';
 import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
 import { AccessTokenGuard } from '@guards/accessToken.guard';
@@ -20,6 +23,7 @@ import { RefreshTokenGuard } from '@guards/refreshToken.guard';
 import { AuthService } from '@services/auth.service';
 import { ICredentials } from 'src/types/credentials';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -29,6 +33,7 @@ export class AuthController {
     return this.authService.login(req);
   }
 
+  @SwaggerApi('Logout the employee', {})
   @UseGuards(AccessTokenGuard)
   @Get('/logout')
   logout(@Req() req: Request) {
@@ -41,6 +46,7 @@ export class AuthController {
     return await this.authService.registration(req);
   }
 
+  @SwaggerApi('Add a new employee and send a confirmation link', {})
   @UsePipes(new ValidationPipe({ expectedType: CreateEmployeeDto }))
   @Post('/create-employee')
   createNewEmployee(@Body() req) {

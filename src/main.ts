@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { join } from 'path';
 
@@ -12,6 +13,14 @@ async function bootstrap() {
 
   app.setBaseViewsDir(join(__dirname, '../views'));
   app.setViewEngine('pug');
+
+  const config = new DocumentBuilder()
+    .setTitle('Libraries API')
+    .setDescription('The libraries API description')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   const port = configService.get('PORT') || 3000;
   await app.listen(parseInt(port));
