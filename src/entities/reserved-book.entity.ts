@@ -1,19 +1,12 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 import { Book } from '@entities/book.entity';
 import { User } from '@entities/user.entity';
 
-@Entity('reserved_books')
-export class ReservedBook {
-  @PrimaryGeneratedColumn()
-  id: number;
+import { AbstractEntity } from './absrtact.entity';
 
+@Entity('reserved_books')
+export class ReservedBook extends AbstractEntity {
   @OneToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;

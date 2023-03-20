@@ -4,18 +4,16 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Library } from '@entities/library.entity';
 import { Position } from '@entities/position.entity';
 import { Role } from '@entities/role.entity';
 
-@Entity('employees')
-export class Employee {
-  @PrimaryGeneratedColumn()
-  id: number;
+import { AbstractEntity } from './absrtact.entity';
 
+@Entity('employees')
+export class Employee extends AbstractEntity {
   @Column()
   name: string;
 

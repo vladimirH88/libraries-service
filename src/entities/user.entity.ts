@@ -4,16 +4,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Library } from '@entities/library.entity';
 
-@Entity('users')
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+import { AbstractEntity } from './absrtact.entity';
 
+@Entity('users')
+export class User extends AbstractEntity {
   @Column()
   name: string;
 

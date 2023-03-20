@@ -1,10 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+
+import { AbstractEntity } from './absrtact.entity';
 
 @Entity('roles')
-export class Role {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Role extends AbstractEntity {
   @Column()
   name: string;
 

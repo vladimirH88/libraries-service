@@ -1,20 +1,13 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { Author } from '@entities/author.entity';
 import { Genre } from '@entities/genre.entity';
 import { Library } from '@entities/library.entity';
 
-@Entity('books')
-export class Book {
-  @PrimaryGeneratedColumn()
-  id: number;
+import { AbstractEntity } from './absrtact.entity';
 
+@Entity('books')
+export class Book extends AbstractEntity {
   @Column()
   name: string;
 
