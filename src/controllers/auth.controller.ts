@@ -20,8 +20,8 @@ import { RegistrationDto } from '@dto/auth/registration.dto';
 import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
 import { AccessTokenGuard } from '@guards/accessToken.guard';
 import { RefreshTokenGuard } from '@guards/refreshToken.guard';
+import { ICredentials } from '@interfaces/credentials';
 import { AuthService } from '@services/auth.service';
-import { ICredentials } from 'src/types/credentials';
 
 @ApiTags('Auth')
 @Controller('auth')

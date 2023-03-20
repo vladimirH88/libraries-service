@@ -28,7 +28,7 @@
       "@modules/*": ["src/modules/*"],
       "@services/*": ["src/services/*"],
       "@strategies/*": ["src/strategy/*"],
-      "@types/*": ["src/types/*"],
+      "@interfaces/*": ["src/interfaces/*"],
       "@utils/*": ["src/utils/*"]
     }
   }

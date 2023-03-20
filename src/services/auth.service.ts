@@ -10,11 +10,11 @@ import { JwtService } from '@nestjs/jwt';
 import { MailerService } from '@nestjs-modules/mailer';
 
 import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
+import { ICredentials } from '@interfaces/credentials';
 import { EmployeeService } from '@services/employee.service';
 import encryption from '@utils/encryption';
 import { generateConfirmLink } from '@utils/generateConfirmLink';
 import { throwHttpError } from '@utils/response';
-import { ICredentials } from 'src/types/credentials';
 
 @Injectable()
 export class AuthService {

@@ -111,7 +111,7 @@
       "^@modules/(.*)$": "<rootDir>/../src/modules/$1",
       "^@services/(.*)$": "<rootDir>/../src/services/$1",
       "^@strategies/(.*)$": "<rootDir>/../src/strategy/$1",
-      "^@types/(.*)$": "<rootDir>/../src/types/$1",
+      "^@interfaces/(.*)$": "<rootDir>/../src/interfaces/$1",
       "^@utils/(.*)$": "<rootDir>/../src/utils/$1"
     }
   }
