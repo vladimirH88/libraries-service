@@ -14,7 +14,7 @@ export class Book extends AbstractEntity {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ unique: true })
   isbn: string;
 
   @ManyToOne(() => Library)
