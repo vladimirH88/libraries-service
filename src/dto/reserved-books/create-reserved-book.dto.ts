@@ -1,5 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { Book } from '@entities/book.entity';
+import { User } from '@entities/user.entity';
+
 import {
   IsBoolean,
   IsDate,
@@ -14,14 +17,14 @@ export class CreateReservedBookDto {
     example: 2,
   })
   @IsNumber()
-  user_id: number;
+  user: User;
 
   @ApiProperty({
     description: 'Id of the taken book',
     example: 1,
   })
   @IsNumber()
-  book_id: number;
+  book: Book;
 
   @ApiProperty({
     description: 'The date when the book was taken',

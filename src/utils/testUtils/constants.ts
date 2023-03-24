@@ -35,9 +35,9 @@ const BOOK: CreateBookDto = generateBooks(1)[0];
 const GENRE: CreateGenreDto = generateGenres(1)[0];
 const LIBRARY: CreateLibraryDto = generateLibraries(1)[0];
 const POSITION: CreatePositionDto = generatePositions(1)[0];
-const RESERVER_BOOK: CreateReservedBookDto = {
-  user_id: 1,
-  book_id: 1,
+const RESERVER_BOOK = {
+  user: 1,
+  book: 1,
   reserved_from: new Date(),
   reserved_to: new Date(),
   return_date: null,

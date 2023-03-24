@@ -37,6 +37,11 @@ export class ReservedBooksController {
   findOne(@Param('id') id: string) {
     return this.reservedBooksService.findOne(+id);
   }
+  @SwaggerApi('Get a reserved book by user id', CreateReservedBookDto)
+  @Get('/userId/:id')
+  findOneByUserId(@Param('id') id: string) {
+    return this.reservedBooksService.findByUserId(+id);
+  }
 
   @SwaggerApi('Update a reserved book by id', CreateReservedBookDto)
   @Put(':id')

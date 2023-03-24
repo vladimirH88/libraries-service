@@ -40,6 +40,20 @@ export class ReservedBooksService {
     }
   }
 
+  async findByUserId(id: number) {
+    try {
+      return await this.reservedBookRepository
+        .createQueryBuilder('reserved_books')
+        .where('user_id = :id', { id })
+        .leftJoinAndSelect('reserved_books.book', 'book')
+        .leftJoinAndSelect('book.author', 'author')
+        .leftJoinAndSelect('book.genre', 'genre')
+        .getMany();
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
   async update(id: number, updateReservedBookDto: UpdateReservedBookDto) {
     try {
       return await this.reservedBookRepository.update(
