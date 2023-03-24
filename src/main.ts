@@ -6,6 +6,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { join } from 'path';
 
+import { useContainer } from 'class-validator';
+
 import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
@@ -15,6 +17,8 @@ async function bootstrap() {
 
   app.setBaseViewsDir(join(__dirname, '../views'));
   app.setViewEngine('pug');
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   const config = new DocumentBuilder()
     .setTitle('Libraries API')
