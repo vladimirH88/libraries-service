@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MailerService } from '@nestjs-modules/mailer';
 
-import { AuthService } from '@services/auth.service';
+import { AuthAdminService } from '@services/auth/auth-admin.service';
 import { EmployeeService } from '@services/employee.service';
 import encryption from '@utils/encryption';
 import * as responses from '@utils/response';
@@ -24,7 +24,7 @@ import {
 } from '@utils/testUtils/constants';
 
 describe('AutService', () => {
-  let service: AuthService;
+  let service: AuthAdminService;
 
   const employeeRepo = {
     findByLogin: jest.fn(() => Promise.resolve(EMPLOYEE)),
@@ -40,7 +40,7 @@ describe('AutService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        AuthService,
+        AuthAdminService,
         {
           provide: EmployeeService,
           useValue: employeeRepo,
@@ -59,7 +59,7 @@ describe('AutService', () => {
         },
       ],
     }).compile();
-    service = await module.get(AuthService);
+    service = await module.get(AuthAdminService);
   });
 
   describe('login', () => {
@@ -90,7 +90,7 @@ describe('AutService', () => {
       const updateSpy = jest.spyOn(employeeRepo, 'update');
       await service.confirmRegistration(ID);
 
-      expect(findByIdSpy).toHaveBeenCalledTimes(ID);
+      expect(findByIdSpy).toHaveBeenCalledWith(ID);
       expect(updateSpy).toHaveBeenCalledWith(ID, { ...EMPLOYEE, active: true });
     });
     it('should throw an exception', async () => {

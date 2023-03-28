@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailerModule } from '@nestjs-modules/mailer';
 
 import { RolesGuard } from '@guards/roles.guard';
-import { AuthModule } from '@modules/auth.module';
+import { AuthAdminModule } from '@modules/auth/auth-admin.module';
 import { AuthorModule } from '@modules/author.module';
 import { BookModule } from '@modules/book.module';
 import { EmployeeModule } from '@modules/employee.module';
@@ -16,6 +16,7 @@ import { ReservedBooksModule } from '@modules/reserved-books.module';
 import { RolesModule } from '@modules/roles.module';
 import { UserModule } from '@modules/user.module';
 
+import { AuthAppModule } from './auth/auth-app.module';
 import { getMailConfig } from '../config/mail.config';
 import { typeOrmAsyncConfig } from '../config/typeorm.config';
 
@@ -23,7 +24,8 @@ import { typeOrmAsyncConfig } from '../config/typeorm.config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      // envFilePath: `.env.${process.env.NODE_ENV}`
+      envFilePath: `.env`,
     }),
     LibraryModule,
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
@@ -34,7 +36,8 @@ import { typeOrmAsyncConfig } from '../config/typeorm.config';
     BookModule,
     UserModule,
     ReservedBooksModule,
-    AuthModule,
+    AuthAdminModule,
+    AuthAppModule,
     RolesModule,
     MailerModule.forRootAsync({
       imports: [ConfigModule],

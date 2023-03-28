@@ -31,7 +31,7 @@ export class LibraryService {
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     try {
       const item = await this.libraryRepository.findOneBy({ id });
       return returnDbItem(item);
@@ -40,7 +40,7 @@ export class LibraryService {
     }
   }
 
-  async update(id: number, updateLibraryDto: UpdateLibraryDto) {
+  async update(id: string, updateLibraryDto: UpdateLibraryDto) {
     try {
       return await this.libraryRepository.update({ id }, updateLibraryDto);
     } catch (error) {
@@ -48,7 +48,7 @@ export class LibraryService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       return await this.libraryRepository.delete({ id });
     } catch (error) {

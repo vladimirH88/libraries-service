@@ -35,18 +35,18 @@ export class UserController {
   @SwaggerApi('Get the user by id', CreateUserDto)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findById(id);
   }
 
   @SwaggerApi('Update the user by id', CreateUserDto)
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.userService.update(id, updateUserDto);
   }
 
   @SwaggerApi('Update the user by id', CreateUserDto)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userService.remove(id);
   }
 }

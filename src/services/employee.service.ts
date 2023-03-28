@@ -30,7 +30,7 @@ export class EmployeeService {
     }
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     try {
       const item = await this.employeeRepository.findOne({
         where: { id },
@@ -63,7 +63,7 @@ export class EmployeeService {
     }
   }
 
-  async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
+  async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
     try {
       return await this.employeeRepository.update({ id }, updateEmployeeDto);
     } catch (error) {
@@ -71,7 +71,7 @@ export class EmployeeService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       return await this.employeeRepository.delete({ id });
     } catch (error) {

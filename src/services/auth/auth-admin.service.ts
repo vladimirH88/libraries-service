@@ -10,14 +10,15 @@ import { JwtService } from '@nestjs/jwt';
 import { MailerService } from '@nestjs-modules/mailer';
 
 import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
-import { ICredentials } from '@interfaces/credentials';
+import { Employee } from '@entities/employee.entity';
+import { IAdminCredentials } from '@interfaces/credentials';
 import { EmployeeService } from '@services/employee.service';
 import encryption from '@utils/encryption';
 import { generateConfirmLink } from '@utils/generateConfirmLink';
 import { throwHttpError } from '@utils/response';
 
 @Injectable()
-export class AuthService {
+export class AuthAdminService {
   constructor(
     private employeeService: EmployeeService,
     private jwtService: JwtService,
@@ -25,26 +26,26 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async login(dto: CreateEmployeeDto) {
+  async login(dto: IAdminCredentials) {
     try {
-      const user = await this.validateUser(dto);
-      if (!user) {
+      const employee = await this.validateUser(dto);
+      if (!employee) {
         return new UnauthorizedException('Неправильный логин или пароль');
       }
 
-      const tokens = this.generateTokens(user);
-      this.updateRefreshToken(user.id, tokens.refreshToken);
+      const tokens = this.generateTokens(employee);
+      this.updateRefreshToken(employee.id, tokens.refreshToken);
       return tokens;
     } catch (error) {
       throwHttpError();
     }
   }
 
-  async logout(id: number) {
+  async logout(id: string) {
     return this.employeeService.update(id, { refresh_token: null });
   }
 
-  async confirmRegistration(id: number) {
+  async confirmRegistration(id: string) {
     try {
       const user = await this.employeeService.findById(id);
       await this.employeeService.update(id, { ...user, active: true });
@@ -68,14 +69,13 @@ export class AuthService {
         .sendMail({
           to: user.email,
           subject: 'Подтверждение регистрации',
-          from: 'noreply@nestjs.com',
-          html: `<main>Здравствуйте, ${user.name}!<br />
+          html: `<main>Здравствуйте, !<br />
         Для окончания регистрации пройдите по <a href=${generateConfirmLink(
           user.id,
         )}>ссылке</a>.</main>`,
         })
         .catch((e) => {
-          throw new HttpException(
+          return new HttpException(
             `Ошибка работы почты: ${JSON.stringify(e)}`,
             HttpStatus.UNPROCESSABLE_ENTITY,
           );
@@ -85,7 +85,7 @@ export class AuthService {
     }
   }
 
-  async registration({ id, login, password }: ICredentials) {
+  async registration({ id, login, password }: IAdminCredentials) {
     try {
       const candidate = await this.employeeService.findByLogin(login);
       if (candidate) {
@@ -94,30 +94,31 @@ export class AuthService {
           HttpStatus.BAD_REQUEST,
         );
       }
-      const user = await this.employeeService.findById(id);
+      const employee = await this.employeeService.findById(id);
       const hashPassword = await encryption.encrypt(password);
 
       await this.employeeService.update(id, {
-        ...user,
+        ...employee,
         active: true,
         password: hashPassword,
         login,
       });
 
-      const tokens = this.generateTokens(user);
+      const tokens = this.generateTokens(employee);
       this.updateRefreshToken(id, tokens.refreshToken);
 
-      return { redirectUrl: `/?hash=${tokens.refreshToken}` };
+      // return { redirectUrl: `/?hash=${tokens.refreshToken}` };
+      return { redirectUrl: `/libraries/?hash=${tokens.refreshToken}` };
     } catch (error) {
       throwHttpError();
     }
   }
 
-  private generateTokens(user: Partial<CreateEmployeeDto>) {
+  private generateTokens({ id, login, role }: Employee) {
     const payload = {
-      login: user.login,
-      sub: user.id,
-      roles: [user.role.name],
+      login,
+      sub: id,
+      roles: [role.name],
     };
 
     return {
@@ -132,7 +133,7 @@ export class AuthService {
     };
   }
 
-  async refreshTokens(userId: number, refreshToken: string) {
+  async refreshTokens(userId: string, refreshToken: string) {
     const user = await this.employeeService.findById(userId);
     if (!user || !user.refresh_token) {
       throw new ForbiddenException('Access Denied');
@@ -149,29 +150,28 @@ export class AuthService {
     return tokens;
   }
 
-  async updateRefreshToken(id: number, refreshToken: string) {
+  async updateRefreshToken(id: string, refreshToken: string) {
     const hashedRefreshToken = await encryption.encrypt(refreshToken);
     await this.employeeService.update(id, {
       refresh_token: hashedRefreshToken,
     });
   }
 
-  async validateUser(
-    dto: CreateEmployeeDto,
-  ): Promise<Partial<CreateEmployeeDto>> {
+  async validateUser({
+    login,
+    password,
+  }: IAdminCredentials): Promise<Employee> {
     try {
-      const user = await this.employeeService.findByLogin(dto.login);
-      if (!user) {
+      const employee = await this.employeeService.findByLogin(login);
+      if (!employee) {
         return null;
       }
       const passwordEquals = await encryption.compare(
-        dto.password,
-        user.password,
+        password,
+        employee.password,
       );
-      if (user?.active && passwordEquals) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { password, ...result } = user;
-        return result;
+      if (employee?.active && passwordEquals) {
+        return employee;
       }
       return null;
     } catch (error) {

@@ -31,7 +31,7 @@ export class GenreService {
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     try {
       const item = await this.genreRepository.findOneBy({ id });
       return returnDbItem(item);
@@ -40,7 +40,7 @@ export class GenreService {
     }
   }
 
-  async update(id: number, updateGenreDto: UpdateGenreDto) {
+  async update(id: string, updateGenreDto: UpdateGenreDto) {
     try {
       return await this.genreRepository.update({ id }, updateGenreDto);
     } catch (error) {
@@ -48,7 +48,7 @@ export class GenreService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       return await this.genreRepository.delete({ id });
     } catch (error) {

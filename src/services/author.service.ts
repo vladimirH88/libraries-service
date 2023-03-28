@@ -31,7 +31,7 @@ export class AuthorService {
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     try {
       const item = await this.authorRepository.findOneBy({ id });
       return returnDbItem(item);
@@ -40,7 +40,7 @@ export class AuthorService {
     }
   }
 
-  async update(id: number, updateAuthorDto: UpdateAuthorDto) {
+  async update(id: string, updateAuthorDto: UpdateAuthorDto) {
     try {
       return await this.authorRepository.update({ id }, updateAuthorDto);
     } catch (error) {
@@ -48,7 +48,7 @@ export class AuthorService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       return await this.authorRepository.delete({ id });
     } catch (error) {

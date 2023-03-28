@@ -31,7 +31,7 @@ export class ReservedBooksService {
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     try {
       const item = await this.reservedBookRepository.findOneBy({ id });
       return returnDbItem(item);
@@ -40,7 +40,7 @@ export class ReservedBooksService {
     }
   }
 
-  async findByUserId(id: number) {
+  async findByUserId(id: string) {
     try {
       return await this.reservedBookRepository
         .createQueryBuilder('reserved_books')
@@ -54,7 +54,7 @@ export class ReservedBooksService {
     }
   }
 
-  async update(id: number, updateReservedBookDto: UpdateReservedBookDto) {
+  async update(id: string, updateReservedBookDto: UpdateReservedBookDto) {
     try {
       return await this.reservedBookRepository.update(
         { id },
@@ -65,7 +65,7 @@ export class ReservedBooksService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       return await this.reservedBookRepository.delete({ id });
     } catch (error) {

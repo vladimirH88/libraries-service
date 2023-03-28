@@ -35,7 +35,7 @@ export class EmployeeController {
   @SwaggerApi('Get the employee by id', CreateEmployeeDto)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.employeeService.findById(+id);
+    return this.employeeService.findById(id);
   }
 
   @SwaggerApi('Update the employee by id', CreateEmployeeDto)
@@ -44,12 +44,12 @@ export class EmployeeController {
     @Param('id') id: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
-    return this.employeeService.update(+id, updateEmployeeDto);
+    return this.employeeService.update(id, updateEmployeeDto);
   }
 
   @SwaggerApi('Delete the employee by id', CreateEmployeeDto)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.employeeService.remove(+id);
+    return this.employeeService.remove(id);
   }
 }

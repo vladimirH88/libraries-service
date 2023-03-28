@@ -1,12 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsbnExist } from '@decorators/validation/book/book-isbn.decorator';
-import { Author } from '@entities/author.entity';
-import { Genre } from '@entities/genre.entity';
-import { Library } from '@entities/library.entity';
-import { IsNumber, IsString } from 'class-validator';
+import { AbstractEntity } from '@entities/absrtact.entity';
+import { IsString, IsUUID } from 'class-validator';
 
-export class CreateBookDto {
+export class CreateBookDto extends AbstractEntity {
   @ApiProperty({ description: 'Book name', example: '1000 рецептов из щавеля' })
   @IsString()
   name: string;
@@ -23,15 +21,24 @@ export class CreateBookDto {
   @IsbnExist()
   isbn: string;
 
-  @ApiProperty({ description: 'Library id', example: '1' })
-  @IsNumber()
-  library: Library;
+  @ApiProperty({
+    description: 'Library id',
+    example: '11111111-1111-1111-1111-111111111111',
+  })
+  @IsUUID()
+  library_id: string;
 
-  @ApiProperty({ description: 'Genre id', example: '2' })
-  @IsNumber()
-  genre: Genre;
+  @ApiProperty({
+    description: 'Genre id',
+    example: '11111111-1111-1111-1111-111111111111',
+  })
+  @IsUUID()
+  genre_id: string;
 
-  @ApiProperty({ description: 'Author id', example: '5' })
-  @IsNumber()
-  author: Author;
+  @ApiProperty({
+    description: 'Author id',
+    example: '11111111-1111-1111-1111-111111111111',
+  })
+  @IsUUID()
+  author_id: string;
 }

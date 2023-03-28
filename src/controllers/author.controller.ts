@@ -35,18 +35,18 @@ export class AuthorController {
   @SwaggerApi('Get the author by id', CreateAuthorDto)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.authorService.findOne(+id);
+    return this.authorService.findOne(id);
   }
 
   @SwaggerApi('Update the author by id', CreateAuthorDto)
   @Put(':id')
   update(@Param('id') id: string, @Body() updateAuthorDto: UpdateAuthorDto) {
-    return this.authorService.update(+id, updateAuthorDto);
+    return this.authorService.update(id, updateAuthorDto);
   }
 
   @SwaggerApi('Delete the author by id', CreateAuthorDto)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.authorService.remove(+id);
+    return this.authorService.remove(id);
   }
 }

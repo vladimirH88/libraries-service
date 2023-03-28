@@ -1,18 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Role } from '@entities/role.entity';
-import {
-  IsDate,
-  IsEmail,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { AbstractEntity } from '@entities/absrtact.entity';
 
-export class CreateEmployeeDto {
-  @ApiProperty({ description: 'Employee id', example: 1 })
-  id: number;
+import { IsDate, IsEmail, IsOptional, IsString, IsUUID } from 'class-validator';
 
+export class CreateEmployeeDto extends AbstractEntity {
   @ApiProperty({ description: "Employee's name", example: 'Иван' })
   @IsString()
   name: string;
@@ -30,13 +22,19 @@ export class CreateEmployeeDto {
   @IsString()
   surname: string;
 
-  @ApiProperty({ description: 'Employee position id', example: 32 })
-  @IsNumber()
-  position_id: number;
+  @ApiProperty({
+    description: 'Employee position id',
+    example: '92f575b4-51d8-4c72-81e7-d88680871fe4',
+  })
+  @IsUUID()
+  position_id: string;
 
-  @ApiProperty({ description: 'Employee library id', example: 3 })
-  @IsNumber()
-  library_id: number;
+  @ApiProperty({
+    description: 'Employee library id',
+    example: '92f575b4-51d8-4c72-81e7-d88680871fe4',
+  })
+  @IsUUID()
+  library_id: string;
 
   @ApiProperty({
     description: 'Date of employment',
@@ -58,9 +56,12 @@ export class CreateEmployeeDto {
 
   login: string;
 
-  @ApiProperty({ description: "Employee's role", example: 'User' })
-  @IsNumber()
-  role: Role;
+  @ApiProperty({
+    description: "Employee's role id",
+    example: '18f2fee2-1e3a-449c-962a-66ad888966c1',
+  })
+  @IsString()
+  role_id: string;
 
   @ApiProperty({ description: "Employee's email", example: 'ivano@mail.com' })
   @IsEmail()

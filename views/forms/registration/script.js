@@ -15,12 +15,12 @@ async function onSubmitForm() {
   const id = window.location.search.split('=')[1];
 
   const data = {
-    id: +id,
+    id: id,
     login: form.login.value,
     password: form.password.value,
   };
   try {
-    const fetchData = await fetch('/auth/registration', {
+    const fetchData = await fetch('/auth/admin/registration', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

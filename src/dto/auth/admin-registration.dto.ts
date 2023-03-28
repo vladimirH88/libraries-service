@@ -6,11 +6,13 @@ import {
   passwordLength,
   passwordLengthError,
 } from '@constants/registration';
-import { IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
+import { IAdminCredentials } from '@interfaces/credentials';
+import { IsString, IsUUID, MaxLength, MinLength } from 'class-validator';
 
-export class RegistrationDto {
-  @IsNumber()
-  id: number;
+export class AdminRegistrationDto implements IAdminCredentials {
+  @ApiProperty({ description: 'Employee id', required: false })
+  @IsUUID()
+  id: string;
 
   @ApiProperty({ description: 'Login', required: false })
   @IsString()

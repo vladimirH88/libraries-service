@@ -51,7 +51,7 @@ export class BookService {
     }
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     try {
       const item = await this.bookRepository.findOne({
         where: { id },
@@ -65,8 +65,7 @@ export class BookService {
 
   async findByIsbn(isbn: string) {
     try {
-      const item = await this.bookRepository.findOne({ where: { isbn } });
-      return returnDbItem(item);
+      return await this.bookRepository.findOne({ where: { isbn } });
     } catch (error) {
       throw new InternalServerErrorException();
     }
@@ -85,7 +84,7 @@ export class BookService {
     }
   }
 
-  async update(id: number, updateBookDto: UpdateBookDto) {
+  async update(id: string, updateBookDto: UpdateBookDto) {
     try {
       return await this.bookRepository.update({ id }, updateBookDto);
     } catch (error) {
@@ -93,7 +92,7 @@ export class BookService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       return await this.bookRepository.delete({ id });
     } catch (error) {

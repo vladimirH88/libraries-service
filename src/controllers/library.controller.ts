@@ -42,7 +42,7 @@ export class LibraryController {
   @Get(':id')
   @Render('./library/library.pug')
   async findOne(@Param('id') id: string) {
-    const data = await this.libraryService.findOne(+id);
+    const data = await this.libraryService.findOne(id);
     return { ...data };
   }
 
@@ -50,12 +50,12 @@ export class LibraryController {
   @UsePipes(new ValidationPipe())
   @Put(':id')
   update(@Param('id') id: string, @Body() updateLibraryDto: UpdateLibraryDto) {
-    return this.libraryService.update(+id, updateLibraryDto);
+    return this.libraryService.update(id, updateLibraryDto);
   }
 
   @SwaggerApi('Delete library by id', CreateLibraryDto)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.libraryService.remove(+id);
+    return this.libraryService.remove(id);
   }
 }

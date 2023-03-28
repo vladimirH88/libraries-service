@@ -31,7 +31,7 @@ export class PositionService {
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     try {
       const item = await this.positionRepository.findOneBy({ id });
       return returnDbItem(item);
@@ -40,7 +40,7 @@ export class PositionService {
     }
   }
 
-  async update(id: number, updatePositionDto: UpdatePositionDto) {
+  async update(id: string, updatePositionDto: UpdatePositionDto) {
     try {
       return await this.positionRepository.update({ id }, updatePositionDto);
     } catch (error) {
@@ -48,7 +48,7 @@ export class PositionService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       return await this.positionRepository.delete({ id });
     } catch (error) {

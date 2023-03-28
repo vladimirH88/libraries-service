@@ -35,12 +35,12 @@ export class ReservedBooksController {
   @SwaggerApi('Get a reserved book by id', CreateReservedBookDto)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.reservedBooksService.findOne(+id);
+    return this.reservedBooksService.findOne(id);
   }
   @SwaggerApi('Get a reserved book by user id', CreateReservedBookDto)
   @Get('/userId/:id')
   findOneByUserId(@Param('id') id: string) {
-    return this.reservedBooksService.findByUserId(+id);
+    return this.reservedBooksService.findByUserId(id);
   }
 
   @SwaggerApi('Update a reserved book by id', CreateReservedBookDto)
@@ -49,12 +49,12 @@ export class ReservedBooksController {
     @Param('id') id: string,
     @Body() updateReservedBookDto: UpdateReservedBookDto,
   ) {
-    return this.reservedBooksService.update(+id, updateReservedBookDto);
+    return this.reservedBooksService.update(id, updateReservedBookDto);
   }
 
   @SwaggerApi('Delete a reserved book by id', CreateReservedBookDto)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.reservedBooksService.remove(+id);
+    return this.reservedBooksService.remove(id);
   }
 }

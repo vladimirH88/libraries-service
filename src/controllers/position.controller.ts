@@ -35,7 +35,7 @@ export class PositionController {
   @SwaggerApi('Get the position by id', CreatePositionDto)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.positionService.findOne(+id);
+    return this.positionService.findOne(id);
   }
 
   @SwaggerApi('Update the position by id', CreatePositionDto)
@@ -44,12 +44,12 @@ export class PositionController {
     @Param('id') id: string,
     @Body() updatePositionDto: UpdatePositionDto,
   ) {
-    return this.positionService.update(+id, updatePositionDto);
+    return this.positionService.update(id, updatePositionDto);
   }
 
   @SwaggerApi('Delete the position by id', CreatePositionDto)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.positionService.remove(+id);
+    return this.positionService.remove(id);
   }
 }

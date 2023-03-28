@@ -1,14 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { Library } from '@entities/library.entity';
+import { Exclude } from 'class-transformer';
 
 import { AbstractEntity } from './absrtact.entity';
+import { Role } from './role.entity';
 
 @Entity('users')
 export class User extends AbstractEntity {
@@ -21,9 +16,6 @@ export class User extends AbstractEntity {
   @Column()
   surname: string;
 
-  @CreateDateColumn()
-  registration_date: Date;
-
   @Column({ default: false })
   block: boolean;
 
@@ -33,7 +25,25 @@ export class User extends AbstractEntity {
   @Column({ default: null, nullable: true })
   block_reason: string;
 
-  @ManyToOne(() => Library)
-  @JoinColumn({ name: 'library_id' })
-  library: Library;
+  @Column()
+  email: string;
+
+  @ManyToOne(() => Role)
+  @JoinColumn({ name: 'role_id' })
+  role: Role;
+
+  @Column()
+  role_id: string;
+
+  @Exclude()
+  @Column()
+  password: string;
+
+  @Exclude()
+  @Column()
+  login: string;
+
+  @Exclude()
+  @Column({ nullable: true })
+  refresh_token: string;
 }

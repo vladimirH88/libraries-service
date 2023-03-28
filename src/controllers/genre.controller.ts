@@ -35,18 +35,18 @@ export class GenreController {
   @SwaggerApi('Get the genre by id', CreateGenreDto)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.genreService.findOne(+id);
+    return this.genreService.findOne(id);
   }
 
   @SwaggerApi('Update the genre by id', CreateGenreDto)
   @Put(':id')
   update(@Param('id') id: string, @Body() updateGenreDto: UpdateGenreDto) {
-    return this.genreService.update(+id, updateGenreDto);
+    return this.genreService.update(id, updateGenreDto);
   }
 
   @SwaggerApi('Delete the genre by id', CreateGenreDto)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.genreService.remove(+id);
+    return this.genreService.remove(id);
   }
 }

@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from '@dto/user/create-user.dto';
 import { UpdateUserDto } from '@dto/user/update-user.dto';
 import { User } from '@entities/user.entity';
-import { returnDbItem } from '@utils/response';
 
 @Injectable()
 export class UserService {
@@ -31,16 +30,19 @@ export class UserService {
     }
   }
 
-  async findOne(id: number) {
+  async findById(id: string) {
     try {
-      const item = await this.userRepository.findOneBy({ id });
-      return returnDbItem(item);
+      const item = await this.userRepository.findOne({
+        where: { id },
+        relations: ['role'],
+      });
+      return item;
     } catch (error) {
       throw new InternalServerErrorException();
     }
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     try {
       return await this.userRepository.update({ id }, updateUserDto);
     } catch (error) {
@@ -48,9 +50,20 @@ export class UserService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
       return await this.userRepository.delete({ id });
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
+  async findByLogin(login: string) {
+    try {
+      return await this.userRepository.findOne({
+        where: { login },
+        relations: ['role'],
+      });
     } catch (error) {
       throw new InternalServerErrorException();
     }

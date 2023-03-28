@@ -2,9 +2,9 @@ import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
-import { AuthController } from '@controllers/auth.controller';
+import { AuthAdminController } from '@controllers/auth/auth-admin.controller';
 import { EmployeeModule } from '@modules/employee.module';
-import { AuthService } from '@services/auth.service';
+import { AuthAdminService } from '@services/auth/auth-admin.service';
 import { AccessTokenStrategy } from '@strategies/accessToken.strategy';
 import { RefreshTokenStrategy } from '@strategies/refreshToken.strategy';
 
@@ -14,8 +14,8 @@ import { RefreshTokenStrategy } from '@strategies/refreshToken.strategy';
     PassportModule,
     JwtModule.register({}),
   ],
-  providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy],
-  exports: [AuthService, JwtModule],
-  controllers: [AuthController],
+  providers: [AuthAdminService, AccessTokenStrategy, RefreshTokenStrategy],
+  exports: [AuthAdminService, JwtModule],
+  controllers: [AuthAdminController],
 })
-export class AuthModule {}
+export class AuthAdminModule {}

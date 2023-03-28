@@ -21,11 +21,20 @@ export class Book extends AbstractEntity {
   @JoinColumn({ name: 'library_id' })
   library: Library;
 
+  @Column()
+  library_id: string;
+
   @ManyToOne(() => Genre)
   @JoinColumn({ name: 'genre_id' })
   genre: Genre;
 
+  @Column()
+  genre_id: string;
+
   @ManyToOne(() => Author)
   @JoinColumn({ name: 'author_id' })
   author: Author;
+
+  @Column()
+  author_id: string;
 }

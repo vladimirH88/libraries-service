@@ -18,7 +18,7 @@ import {
   roles,
 } from '@helpers/mocks/entity.mock';
 
-const ID = 1;
+const ID = '92f575b4-51d8-4c72-81e7-d88680871fe4';
 const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
 const HASH_PASSWORD = 'hashPassword';
@@ -35,13 +35,16 @@ const BOOK: CreateBookDto = generateBooks(1)[0];
 const GENRE: CreateGenreDto = generateGenres(1)[0];
 const LIBRARY: CreateLibraryDto = generateLibraries(1)[0];
 const POSITION: CreatePositionDto = generatePositions(1)[0];
-const RESERVER_BOOK = {
-  user: 1,
-  book: 1,
+const RESERVER_BOOK: CreateReservedBookDto = {
+  user_id: '00000000-0000-0000-0000-000000000000',
+  book_id: '11111111-1111-1111-1111-111111111111',
   reserved_from: new Date(),
   reserved_to: new Date(),
   return_date: null,
   returned: false,
+  id: '22222222-2222-2222-2222-222222222222',
+  created_at: new Date(),
+  updated_at: undefined,
 };
 const ROLE: CreateRoleDto = roles[0];
 const USER: CreateUserDto = generateUsers(1)[0];

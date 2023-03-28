@@ -1,8 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsBoolean, IsDate, IsOptional, IsString } from 'class-validator';
+import {
+  loginLength,
+  loginLengthError,
+  passwordLength,
+  passwordLengthError,
+} from '@constants/registration';
+import { AbstractEntity } from '@entities/absrtact.entity';
 
-export class CreateUserDto {
+import {
+  IsBoolean,
+  IsDate,
+  IsEmail,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+
+export class CreateUserDto extends AbstractEntity {
   @ApiProperty({ description: "User's name", example: 'Иван' })
   @IsString()
   name: string;
@@ -20,12 +36,12 @@ export class CreateUserDto {
   @IsString()
   surname: string;
 
-  @ApiProperty({ description: 'Registration date', example: 'Иванов' })
-  @IsDate()
-  registration_date: Date;
-
-  @ApiProperty({ description: 'Is the user blocked', example: false })
+  @ApiProperty({
+    description: 'Is the user blocked',
+    required: false,
+  })
   @IsBoolean()
+  @IsOptional()
   block: boolean;
 
   @ApiProperty({
@@ -44,4 +60,24 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   block_reason: string;
+
+  @ApiProperty({ description: 'Password' })
+  @IsString()
+  @MinLength(passwordLength.min, { message: passwordLengthError })
+  @MaxLength(passwordLength.max, { message: passwordLengthError })
+  password: string;
+
+  @ApiProperty({ description: 'Login' })
+  @IsString()
+  @MinLength(loginLength.min, { message: loginLengthError })
+  @MaxLength(loginLength.max, { message: loginLengthError })
+  login: string;
+
+  role_id: string;
+
+  @ApiProperty({ description: "User's email", example: 'ivano@mail.com' })
+  @IsEmail()
+  email: string;
+
+  refresh_token?: string | null;
 }

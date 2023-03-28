@@ -1,8 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { AbstractEntity } from '@entities/absrtact.entity';
+
 import { IsEmail, IsOptional, IsString } from 'class-validator';
 
-export class CreateLibraryDto {
+export class CreateLibraryDto extends AbstractEntity {
   @ApiProperty({ description: 'Library name', example: 'Библиотека №1' })
   @IsString()
   name: string;

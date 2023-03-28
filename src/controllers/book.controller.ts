@@ -38,18 +38,18 @@ export class BookController {
   @SwaggerApi('Get the book by id', CreateBookDto)
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    await this.bookService.findById(+id);
+    await this.bookService.findById(id);
   }
 
   @SwaggerApi('Update the book by id', CreateBookDto)
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return await this.bookService.update(+id, updateBookDto);
+    return await this.bookService.update(id, updateBookDto);
   }
 
   @SwaggerApi('Delete the book by id', CreateBookDto)
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.bookService.remove(+id);
+    return await this.bookService.remove(id);
   }
 }

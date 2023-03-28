@@ -1,30 +1,29 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Book } from '@entities/book.entity';
-import { User } from '@entities/user.entity';
+import { AbstractEntity } from '@entities/absrtact.entity';
 
 import {
   IsBoolean,
   IsDate,
-  IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
 } from 'class-validator';
 
-export class CreateReservedBookDto {
+export class CreateReservedBookDto extends AbstractEntity {
   @ApiProperty({
     description: 'Id of the user who took the book',
-    example: 2,
+    example: '92f575b4-51d8-4c72-81e7-d88680871fe1',
   })
-  @IsNumber()
-  user: User;
+  @IsUUID()
+  user_id: string;
 
   @ApiProperty({
     description: 'Id of the taken book',
-    example: 1,
+    example: '92f575b4-51d8-4c72-81e7-d88680871fe4',
   })
-  @IsNumber()
-  book: Book;
+  @IsUUID()
+  book_id: string;
 
   @ApiProperty({
     description: 'The date when the book was taken',

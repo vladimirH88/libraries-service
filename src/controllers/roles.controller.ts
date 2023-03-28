@@ -27,12 +27,12 @@ export class RolesController {
   @SwaggerApi('Get the role by id', CreateRoleDto)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.rolesService.findOne(+id);
+    return this.rolesService.findOne(id);
   }
 
   @SwaggerApi('Update the role by id', CreateRoleDto)
   @Put(':id')
   update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
-    return this.rolesService.update(+id, updateRoleDto);
+    return this.rolesService.update(id, updateRoleDto);
   }
 }

@@ -16,20 +16,20 @@ import { ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 
 import { SwaggerApi } from '@decorators/swaggerApi.decorator';
-import { RegistrationDto } from '@dto/auth/registration.dto';
+import { AdminRegistrationDto } from '@dto/auth/admin-registration.dto';
 import { CreateEmployeeDto } from '@dto/employee/create-employee.dto';
 import { AccessTokenGuard } from '@guards/accessToken.guard';
 import { RefreshTokenGuard } from '@guards/refreshToken.guard';
-import { ICredentials } from '@interfaces/credentials';
-import { AuthService } from '@services/auth.service';
+import { IAdminCredentials } from '@interfaces/credentials';
+import { AuthAdminService } from '@services/auth/auth-admin.service';
 
-@ApiTags('Auth')
-@Controller('auth')
-export class AuthController {
-  constructor(private authService: AuthService) {}
+@ApiTags('Auth admin')
+@Controller('auth/admin')
+export class AuthAdminController {
+  constructor(private authService: AuthAdminService) {}
 
   @Post('/login')
-  login(@Body() req) {
+  login(@Body() req: IAdminCredentials) {
     return this.authService.login(req);
   }
 
@@ -40,13 +40,17 @@ export class AuthController {
     this.authService.logout(req.user['id']);
   }
 
-  @UsePipes(new ValidationPipe({ expectedType: RegistrationDto }))
+  @SwaggerApi('Registration', AdminRegistrationDto)
+  @UsePipes(new ValidationPipe({ expectedType: AdminRegistrationDto }))
   @Post('/registration')
-  async registration(@Body() req: ICredentials) {
+  async registration(@Body() req: IAdminCredentials) {
     return await this.authService.registration(req);
   }
 
-  @SwaggerApi('Add a new employee and send a confirmation link', {})
+  @SwaggerApi(
+    'Add a new employee and send a confirmation link',
+    CreateEmployeeDto,
+  )
   @UsePipes(new ValidationPipe({ expectedType: CreateEmployeeDto }))
   @Post('/create-employee')
   createNewEmployee(@Body() req) {
@@ -59,6 +63,7 @@ export class AuthController {
     return { id };
   }
 
+  @SwaggerApi('Refresh tokens', {})
   @UseGuards(RefreshTokenGuard)
   @Get('/refresh')
   refreshTokens(@Req() req: Request) {

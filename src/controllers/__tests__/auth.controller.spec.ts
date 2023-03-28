@@ -2,12 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { createRequest } from 'node-mocks-http';
 
-import { AuthController } from '@controllers/auth.controller';
-import { ICredentials } from '@interfaces/credentials';
-import { AuthService } from '@services/auth.service';
+import { AuthAdminController } from '@controllers/auth/auth-admin.controller';
+import { IAdminCredentials } from '@interfaces/credentials';
+import { AuthAdminService } from '@services/auth/auth-admin.service';
 import { EMPLOYEE } from '@utils/testUtils/constants';
 
-describe('AuthController', () => {
+describe('AuthAdminController', () => {
   const ID = '1';
   const responses = {
     login: 'loginResponse',
@@ -17,12 +17,12 @@ describe('AuthController', () => {
     refreshTokens: 'refreshTokensResponse',
   };
 
-  let authService: AuthService;
-  let authController: AuthController;
+  let authService: AuthAdminService;
+  let authController: AuthAdminController;
 
   beforeEach(async () => {
     const ApiServiceProvider = {
-      provide: AuthService,
+      provide: AuthAdminService,
       useFactory: () => ({
         login: jest.fn(() => responses.login),
         logout: jest.fn(() => responses.logout),
@@ -32,11 +32,11 @@ describe('AuthController', () => {
       }),
     };
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [AuthController],
-      providers: [AuthService, ApiServiceProvider],
+      controllers: [AuthAdminController],
+      providers: [AuthAdminService, ApiServiceProvider],
     }).compile();
-    authController = app.get<AuthController>(AuthController);
-    authService = app.get<AuthService>(AuthService);
+    authController = app.get<AuthAdminController>(AuthAdminController);
+    authService = app.get<AuthAdminService>(AuthAdminService);
   });
   describe('login', () => {
     it('Should call authService.login and return the correct response', () => {
@@ -54,8 +54,8 @@ describe('AuthController', () => {
   });
   describe('registration', () => {
     it('Should call authService.registration and return the correct response', async () => {
-      const credentials: ICredentials = {
-        id: 1,
+      const credentials: IAdminCredentials = {
+        id: '1',
         login: 'login',
         password: 'password',
       };

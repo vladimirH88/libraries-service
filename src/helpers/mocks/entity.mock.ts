@@ -48,7 +48,12 @@ export const generatePositions = (quantity: number) => {
 export const roles = [
   {
     name: Role.Guest,
-    description: 'Просмотр',
+    description: 'Посещение ресурса',
+    active: true,
+  },
+  {
+    name: Role.User,
+    description: 'Доступ в личный кабинет, бронирование книг',
     active: true,
   },
   {
@@ -77,9 +82,10 @@ export const generateBooks = (quantity: number) => {
     name: faker.random.word(),
     description: faker.commerce.productName(),
     isbn: faker.random.numeric(14),
-    library: +faker.commerce.price(1, NUMBER_OF_LIBRARIES, 0),
-    genre: +faker.commerce.price(1, NUMBER_OF_GENRES, 0),
-    author: +faker.commerce.price(1, NUMBER_OF_AUTHOR, 0),
+    // library: +faker.commerce.price(1, NUMBER_OF_LIBRARIES, 0),
+    library: faker.datatype.uuid(),
+    genre: faker.datatype.uuid(),
+    author: faker.datatype.uuid(),
   });
   return getArrayOfItems(quantity, generate);
 };
@@ -89,8 +95,8 @@ export const generateEmployees = (quantity: number) => {
     patronymic: faker.name.middleName(),
     surname: faker.name.lastName(),
     email: faker.internet.email(),
-    position: +faker.commerce.price(1, NUMBER_OF_AUTHOR, 0),
-    library: +faker.commerce.price(1, NUMBER_OF_LIBRARIES, 0),
+    position: faker.datatype.uuid(),
+    library: faker.datatype.uuid(),
     employment_date: faker.date.soon(),
     fired_date: null,
     role: roles[+faker.commerce.price(1, roles.length, 0)],
@@ -110,7 +116,6 @@ export const generateUsers = (quantity: number) => {
     block: false,
     block_date: null,
     block_reason: null,
-    library: +faker.commerce.price(1, NUMBER_OF_LIBRARIES, 0),
   });
   return getArrayOfItems(quantity, generate);
 };

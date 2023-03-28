@@ -11,9 +11,15 @@ export class ReservedBook extends AbstractEntity {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
+  @Column()
+  user_id: string;
+
   @OneToOne(() => Book)
   @JoinColumn({ name: 'book_id' })
   book: Book;
+
+  @Column()
+  book_id: string;
 
   @Column()
   reserved_from: Date;
