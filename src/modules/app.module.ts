@@ -17,6 +17,7 @@ import { RolesModule } from '@modules/roles.module';
 import { UserModule } from '@modules/user.module';
 
 import { AuthAppModule } from './auth/auth-app.module';
+import { BookedBookModule } from './booked-book.module';
 import { getMailConfig } from '../config/mail.config';
 import { typeOrmAsyncConfig } from '../config/typeorm.config';
 
@@ -39,6 +40,7 @@ import { typeOrmAsyncConfig } from '../config/typeorm.config';
     AuthAdminModule,
     AuthAppModule,
     RolesModule,
+    BookedBookModule,
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

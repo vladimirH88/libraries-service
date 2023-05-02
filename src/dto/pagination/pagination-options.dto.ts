@@ -11,7 +11,7 @@ export class PaginationOptionsDto {
   @IsOptional()
   readonly order?: SortOrder = SortOrder.ASC;
 
-  @ApiPropertyOptional({ enum: SortOrder, default: SortOrder.ASC })
+  @ApiPropertyOptional()
   @IsOptional()
   readonly sortBy?: string = '';
 
