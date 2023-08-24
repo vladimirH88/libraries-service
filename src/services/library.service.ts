@@ -5,7 +5,10 @@ import { Repository } from 'typeorm';
 
 import { CreateLibraryDto } from '@dto/library/create-library.dto';
 import { UpdateLibraryDto } from '@dto/library/update-library.dto';
+import { PaginationOptionsDto } from '@dto/pagination/pagination-options.dto';
+import { PaginationDto } from '@dto/pagination/pagination.dto';
 import { Library } from '@entities/library.entity';
+import { PaginationResponse } from '@interfaces/Pagination';
 import { returnDbItem } from '@utils/response';
 
 @Injectable()
@@ -23,9 +26,26 @@ export class LibraryService {
     }
   }
 
-  async findAll() {
+  async findAll(
+    query: PaginationOptionsDto,
+  ): Promise<PaginationResponse<CreateLibraryDto>> {
     try {
-      return await this.libraryRepository.find();
+      const queryBuilder = this.libraryRepository.createQueryBuilder('library');
+
+      queryBuilder
+        .orderBy(query.sortBy, query.order)
+        .skip(query.skip)
+        .take(query.size);
+
+      const itemCount = await queryBuilder.getCount();
+      const { entities } = await queryBuilder.getRawAndEntities();
+
+      const paginatedData = new PaginationDto(entities, {
+        itemCount,
+        pageOptionsDto: query,
+      }).getData;
+
+      return paginatedData;
     } catch (error) {
       throw new InternalServerErrorException();
     }

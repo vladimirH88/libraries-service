@@ -8,7 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
   Put,
-  Render,
+  Query,
 } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
@@ -16,6 +16,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { SwaggerApi } from '@decorators/swaggerApi.decorator';
 import { CreateLibraryDto } from '@dto/library/create-library.dto';
 import { UpdateLibraryDto } from '@dto/library/update-library.dto';
+import { PaginationOptionsDto } from '@dto/pagination/pagination-options.dto';
 import { LibraryService } from '@services/library.service';
 
 @ApiTags('Libraries')
@@ -32,18 +33,16 @@ export class LibraryController {
 
   @SwaggerApi('Get a list of the libraries', [CreateLibraryDto])
   @Get()
-  @Render('./library/librariesList.pug')
-  async findAll() {
-    const data = await this.libraryService.findAll();
-    return { libraries: data, title: 'Список библиотек' };
+  async findAll(@Query() query: PaginationOptionsDto) {
+    const data = await this.libraryService.findAll(query);
+    return data;
   }
 
   @SwaggerApi('Get the library by id', CreateLibraryDto)
   @Get(':id')
-  @Render('./library/library.pug')
   async findOne(@Param('id') id: string) {
     const data = await this.libraryService.findOne(id);
-    return { ...data };
+    return data;
   }
 
   @SwaggerApi('Update library by id', CreateLibraryDto)
