@@ -35,7 +35,41 @@ export class BookService {
       queryBuilder
         .orderBy(query.sortBy, query.order)
         .skip(query.skip)
-        .take(query.size);
+        .take(query.size)
+        .leftJoinAndSelect('book.author', 'author')
+        .leftJoinAndSelect('book.genre', 'genre')
+        .leftJoinAndSelect('book.library', 'library');
+
+      const itemCount = await queryBuilder.getCount();
+      const { entities } = await queryBuilder.getRawAndEntities();
+
+      const paginatedData = new PaginationDto(entities, {
+        itemCount,
+        pageOptionsDto: query,
+      }).getData;
+
+      return paginatedData;
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
+  async findManyByField(
+    id: string,
+    query: PaginationOptionsDto,
+    field: keyof CreateBookDto,
+  ): Promise<PaginationResponse<CreateBookDto>> {
+    try {
+      const queryBuilder = this.bookRepository.createQueryBuilder('book');
+
+      queryBuilder
+        .orderBy(query.sortBy, query.order)
+        .skip(query.skip)
+        .take(query.size)
+        .where(`${field} = :id`, { id })
+        .leftJoinAndSelect('book.author', 'author')
+        .leftJoinAndSelect('book.genre', 'genre')
+        .leftJoinAndSelect('book.library', 'library');
 
       const itemCount = await queryBuilder.getCount();
       const { entities } = await queryBuilder.getRawAndEntities();
